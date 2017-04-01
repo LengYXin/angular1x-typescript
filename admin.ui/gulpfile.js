@@ -17,9 +17,7 @@ BuildingPlugin.css();
 gulp.task('test', function(done) {
     // BuildingPlugin.test("src", "directives", "modular.ts");
     BuildingPlugin.services("src", "services", "modular.ts");
-
     done();
-
 });
 
 var localhost = "http://localhost:" + webpackConfig.devServer.port + "/";
@@ -65,7 +63,7 @@ gulp.task('watch', function(done) {
         // }
         setTimeout(function() {
             cb();
-        }, 500);
+        }, 1000);
     }
     // services
     gulp.watch('src/services/**/*.ts', function(event) {
@@ -96,7 +94,7 @@ gulp.task('templateCache', function() {
         .pipe(templateCache({
             templateHeader: 'angular.module("<%= module %>",[]).run(["$templateCache", function($templateCache) {',
         }))
-        .pipe(gulp.dest('src/Basics'));
+        .pipe(gulp.dest('src/baseClass'));
 });
 gulp.task('default', ['watch', 'ts2']);
 gulp.task('build', ['ts'], function(done) {

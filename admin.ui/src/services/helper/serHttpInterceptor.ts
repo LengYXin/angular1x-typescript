@@ -4,7 +4,7 @@
  */
 
 export  default class  implements ng.IHttpInterceptor {
-    // static $inject = ['$rootScope','$cookies'];
+    static $inject = ['$rootScope','$cookies'];
     constructor(
         private $rootScope: ng.IRootScopeService,
         private $cookies:any,

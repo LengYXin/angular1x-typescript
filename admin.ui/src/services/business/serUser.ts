@@ -4,7 +4,7 @@ import serHTTP from '../helper/serHTTP';
 import * as GlobalConfig from '../../config';
 
 export  default class  {
-    // static $inject = ['$cookies', '$rootScope', 'serHTTP'];
+    static $inject = ['$cookies', '$rootScope', 'serHTTP'];
     constructor(
         private $cookies: any,
         private $rootScope: ng.IRootScopeService,

@@ -5,7 +5,7 @@
 import * as GlobalConfig from '../../config';
 export default class {
     static $type = GlobalConfig.EnumServicesType.service;
-    // static $inject = ['$http', 'toastr', 'cfpLoadingBar', '$cookies'];
+    static $inject = ['$http', 'toastr', 'cfpLoadingBar', '$cookies'];
     constructor(
         private $http: ng.IHttpService,
         private toastr: any,
