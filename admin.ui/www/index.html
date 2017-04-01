@@ -33,6 +33,14 @@
     <![endif]-->
     <!--由 webpack 生成打包-->
     <link href="dist/styles.css" rel="stylesheet">
+    <script>
+        window.onerror = function name(err) {
+            console.log("---------------------", err);
+            if (err.indexOf("addEventListener") != -1 || err.indexOf("module") != -1) {
+                alert("你的浏览器太老了");
+            }
+        }
+    </script>
 </head>
 </head>
 
