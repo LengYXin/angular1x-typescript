@@ -16,7 +16,7 @@ declare namespace Interface {
     interface ControllerModular {
         name?: string,
         url?: string,
-        val?: { $stateParams?: string[], $IState?: ng.ui.IState }
+        val?: { $stateParams?: string[], $IState?: ng.ui.IState, $views?: { [name: string]: ng.ui.IState } }
     }
     /**
      * 分页

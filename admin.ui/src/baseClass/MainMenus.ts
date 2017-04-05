@@ -7,6 +7,11 @@ export let Menus = [{
             "MenuUrl": "demo/test",
             "Menus": []
         },
+          {
+            "MenuName": "upload",
+            "MenuUrl": "demo/upload",
+            "Menus": []
+        },
         {
             "MenuName": "Editor",
             "MenuUrl": "demo/Editor",

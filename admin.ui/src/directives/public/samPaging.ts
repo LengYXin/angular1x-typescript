@@ -16,7 +16,7 @@ export default class directive implements ng.IDirective {
     replace = true;
     // controller = Controller;
     // controllerAs = "Paging";
-    templateUrl = 'directives/samPaging.tpl.html';
+    templateUrl = 'directives/public/samPaging.tpl.html';
     link(
         scope: any,
         element: ng.IRootElementService,

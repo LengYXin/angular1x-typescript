@@ -7,6 +7,7 @@ import serHttpInterceptor from './serHttpInterceptor';
 import serHTTP from './serHTTP';
 import serStorage from './serStorage';
 import serSession from './serSession';
+import serQiniu from './serQiniu';
 
 export default class {
     //服务器类型 默认为 service 
@@ -21,7 +22,8 @@ export default class {
         'toastr',
         'serStorage',
         'serSession',
-        'serHTTP'
+        'serHTTP',
+        'serQiniu'
     ];
     //提供给外部 ts 提示使用
     static serHttpInterceptor: serHttpInterceptor;
@@ -40,7 +42,7 @@ export default class {
         public serStorage: serStorage,
         public serSession: serSession,
         public serHTTP: serHTTP,
-        // public serQiniu: serQiniu,
+        public serQiniu: serQiniu,
 
     ) {
         GlobalConfig.debug ? console.debug("serHelper", this) : undefined;

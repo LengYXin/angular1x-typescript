@@ -16,6 +16,9 @@ modularList.push({ name: 'serHTTP',  val:serHTTP});
 //   helper/serHttpInterceptor
 import serHttpInterceptor from './helper/serHttpInterceptor';
 modularList.push({ name: 'serHttpInterceptor',  val:serHttpInterceptor});
+//   helper/serQiniu
+import serQiniu from './helper/serQiniu';
+modularList.push({ name: 'serQiniu',  val:serQiniu});
 //   helper/serSession
 import serSession from './helper/serSession';
 modularList.push({ name: 'serSession',  val:serSession});

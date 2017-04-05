@@ -16,7 +16,7 @@ export default class directive implements ng.IDirective {
     }
     restrict = 'AE';
     replace = true;
-    templateUrl = 'directives/samMenu.tpl.html';
+    templateUrl = 'directives/public/samMenu.tpl.html';
     controller = Controller;
     controllerAs = "vm";
     link(scope: ng.IScope, element: ng.IRootElementService, attrs: ng.IAttributes) {

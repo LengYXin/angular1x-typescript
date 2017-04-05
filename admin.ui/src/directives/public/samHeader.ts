@@ -12,7 +12,7 @@ export default class directive implements ng.IDirective {
     replace = true;
     controller = Controller;
     controllerAs = "vm";
-    templateUrl = 'directives/samHeader.tpl.html';
+    templateUrl = 'directives/public/samHeader.tpl.html';
     link(scope: ng.IScope, element: ng.IRootElementService, attrs: ng.IAttributes) {
         // element.find("#main-menu-toggle").click(function () { $("body").hasClass("sidebar-hide") ? $("body").removeClass("sidebar-hide") : $("body").addClass("sidebar-hide") });
     }

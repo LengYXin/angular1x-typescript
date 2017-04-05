@@ -36,7 +36,7 @@ export default class route {
         if (this.noRouteUrls.indexOf(this.pathname) != -1) {
             return;
         }
-        let url = cls.name.toLowerCase() == "index" ? `/${cls.name}` : `/${cls.url}`;
+        let url = ["index", "home"].indexOf(cls.name.toLowerCase()) != -1 ? `/${cls.name}` : `/${cls.url}`;
         // debugger
         // 参数 
         if (cls.val.$stateParams) {
@@ -47,10 +47,15 @@ export default class route {
 
 
         let tpl = `templates/${cls.url}.tpl.html`;
-        let cfg = { url: url, templateUrl: tpl, controller: cls.name, controllerAs: 'vm' };
-
+        let cfg: ng.ui.IState = { url: url, templateUrl: tpl, controller: cls.name, controllerAs: 'vm' };
+        if (cls.val.$views) {
+            //子视图
+            cfg.views = cls.val.$views;
+            //这里需要把 自己导入进来
+            cfg.views[''] = { templateUrl: tpl, controller: cls.name, controllerAs: 'vm' };
+        }
         this.$stateProvider.state(cls.name, cfg)
-        this.clgtate[cls.name] = cfg;
+        this.clgtate[cls.name + (cls.val.$views ? "  --- 此路由为为父配置（控制器 $views） " : "")] = cfg;
     }
     /**
      * 第二种路由方案  根据控制器中的 $IState 手动配置
@@ -61,12 +66,12 @@ export default class route {
             return;
         }
         this.$stateProvider.state(cls.val.$IState)
-        this.clgtate[cls.val.$IState.name + " --- 此路由为收到配置（控制器 $IState）"] = cls.val.$IState;
+        this.clgtate[cls.val.$IState.name + " --- 此路由为手动配置（控制器 $IState）"] = cls.val.$IState;
     }
     otherwise() {
         switch (this.pathname) {
             case "/index.html":
-                this.$urlRouterProvider.otherwise('/demo/dialog');
+                this.$urlRouterProvider.otherwise('/home');
                 break;
         }
     }

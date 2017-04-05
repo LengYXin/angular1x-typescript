@@ -23,6 +23,7 @@ export default class {
             'toastr',
             'ngDialog',
             'ngCookies',
+            'ngFileUpload',
             controller.moduleName,
             service.moduleName,
             directive.moduleName,

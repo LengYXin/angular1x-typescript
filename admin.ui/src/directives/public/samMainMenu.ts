@@ -24,7 +24,7 @@ export default class directive implements ng.IDirective {
     // }];
     controller = Controller;
     controllerAs = "vm";
-    templateUrl = 'directives/samMainMenu.tpl.html';
+    templateUrl = 'directives/public/samMainMenu.tpl.html';
     link(scope: ng.IScope, element: ng.IRootElementService, attrs: ng.IAttributes) {
 
     }
