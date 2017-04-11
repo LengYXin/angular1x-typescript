@@ -4,6 +4,9 @@ let modularList: { name: string, val: any }[] = [];
 //   public/samDateTime
 import samDateTime from './public/samDateTime';
 modularList.push({ name: 'samDateTime',  val:samDateTime.$instance});
+//   public/samEcharts
+import samEcharts from './public/samEcharts';
+modularList.push({ name: 'samEcharts',  val:samEcharts.$instance});
 //   public/samEditor
 import samEditor from './public/samEditor';
 modularList.push({ name: 'samEditor',  val:samEditor.$instance});
@@ -16,9 +19,15 @@ modularList.push({ name: 'samMainMenu',  val:samMainMenu.$instance});
 //   public/samMenu
 import samMenu from './public/samMenu';
 modularList.push({ name: 'samMenu',  val:samMenu.$instance});
+//   public/samOpenTransition
+import samOpenTransition from './public/samOpenTransition';
+modularList.push({ name: 'samOpenTransition',  val:samOpenTransition.$instance});
 //   public/samPaging
 import samPaging from './public/samPaging';
 modularList.push({ name: 'samPaging',  val:samPaging.$instance});
+//   public/samPanel
+import samPanel from './public/samPanel';
+modularList.push({ name: 'samPanel',  val:samPanel.$instance});
 //   public/samTemplateLoader
 import samTemplateLoader from './public/samTemplateLoader';
 modularList.push({ name: 'samTemplateLoader',  val:samTemplateLoader.$instance});

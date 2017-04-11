@@ -17,7 +17,7 @@ export default class controllers {
         url: "/login/login",
     };
     constructor() {
-        console.log("Login控制器");
+        console.debug("Login控制器");
     }
     config = GlobalConfig;
     uid: string = "";

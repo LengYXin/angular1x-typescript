@@ -44,7 +44,8 @@ class Controller {
 
     ) {
         this.Menus = Menus;
-        console.log(" this.Menus", this.Menus);
+        GlobalConfig.debug ? console.debug("菜单列表", this) : undefined;
+      
         // this.Menus = this.serBusiness.serUser.Menus;
         // console.log(this.Menus);
         // console.log("samMainMenu",this.$scope);
@@ -69,15 +70,15 @@ class Controller {
         //     }, 500);
         // });
         function widthFunctions(e) {
-            $(".timeline") && $(".timeslot").each(function () {
-                var e = $(this).find(".task").outerHeight();
-                $(this).css("height", e)
-            });
+            // $(".timeline") && $(".timeslot").each(function () {
+            //     var e = $(this).find(".task").outerHeight();
+            //     $(this).css("height", e)
+            // });
             var t = $(".navbar").outerHeight(),
                 n = $("footer").outerHeight(),
                 r = $(window).height(),
                 i = $(window).width();
-            $(".sidebar-menu").css("height", r - 60);
+            $(".sidebar-menu").css("height", r - 100);
             i < 992 && $("body").removeClass("sidebar-minified");
             i > 768 && $(".main").css("min-height", r - n)
         }
@@ -85,9 +86,9 @@ class Controller {
         $(window).bind("resize", widthFunctions);
     }
     //切换语言
-    switchLanguage() {
-        this.Language = this.Language === 'zh' ? 'en' : 'zh';
-        this.serHelper.serStorage.set("Language", this.Language);
-        // this.$translate.use(this.Language);
-    }
+    // switchLanguage() {
+    //     this.Language = this.Language === 'zh' ? 'en' : 'zh';
+    //     this.serHelper.serStorage.set("Language", this.Language);
+    //     // this.$translate.use(this.Language);
+    // }
 }

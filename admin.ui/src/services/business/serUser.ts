@@ -1,14 +1,11 @@
 
-import serHTTP from '../helper/serHTTP';
-// import { Menus } from '../../Basics/MainMenus';
+import { serHelper } from '../../service';
 import * as GlobalConfig from '../../config';
 
-export  default class  {
-    static $inject = ['$cookies', '$rootScope', 'serHTTP'];
+export default class {
+    static $inject = ['serHelper'];
     constructor(
-        private $cookies: any,
-        private $rootScope: ng.IRootScopeService,
-        private serHTTP: serHTTP,
+        private serHelper: serHelper,
     ) {
 
     }
@@ -46,8 +43,8 @@ export  default class  {
     //     // }, 500);
     // }
     Login(uid: string, pwd: string) {
-        this.serHTTP.post("sys/login", { uid: uid, pwd: pwd }).success(r => {
-            this.$cookies.put('sso-token', r.Token.tk);
+        this.serHelper.serHTTP.post("sys/login", { uid: uid, pwd: pwd }).success(r => {
+            this.serHelper.$cookies.put('sso-token', r.Token.tk);
             window.location.href = "/index.html";
         }).error(e => {
             //todo:?
@@ -55,16 +52,16 @@ export  default class  {
     }
     //获取用户数据处理 逻辑
     GetUserContext(Callback) {
-        if (window.location.pathname != "/login.html" && !this.$cookies.get('sso-token')) window.location.pathname = "/login.html";
+        if (window.location.pathname != "/login.html" && !this.serHelper.$cookies.get('sso-token')) window.location.pathname = "/login.html";
 
-        this.serHTTP.get("sys/UserContext").success(r => {
+        this.serHelper.serHTTP.get("sys/UserContext").success(r => {
             this.UserContext = r;
             // this.HandleUserMenuList(this.UserContext.MenuTree);
             // if (GlobalConfig.debug ) {
             console.debug('UserContext', this.UserContext);
             // }
             Callback ? Callback() : undefined;
-            this.$rootScope.$broadcast("GetUserContextSuccess", this.UserContext);
+            this.serHelper.$rootScope.$broadcast("GetUserContextSuccess", this.UserContext);
         }).error(e => {
             console.log(e);
             // this.HandleUserMenuList(this.UserContext.MenuTree);
@@ -73,15 +70,15 @@ export  default class  {
         });
     }
     Logout() {
-        this.serHTTP.post("/sys/logout", {}).success(r => {
-            this.$cookies.remove('sso-token');
+        this.serHelper.serHTTP.post("/sys/logout", {}).success(r => {
+            this.serHelper.$cookies.remove('sso-token');
             window.location.href = "/login.html";
         }).error(e => {
             console.error(e);
         });
     }
     Refresh() {
-        this.serHTTP.post("/sys/refresh", {}).success(r => {
+        this.serHelper.serHTTP.post("/sys/refresh", {}).success(r => {
             window.location.href = "/index.html";
         });
     }

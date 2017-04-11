@@ -11,17 +11,18 @@ export default class controllers {
     static $stateParams = [];
     //配置  Views 视图
     static $views: { [name: string]: ng.ui.IState } = {
+        "teamProfile@home": { templateUrl: "templates/home/page/team-profile.tpl.html", controller: "home/teamProfile", controllerAs: 'svm' },
         "page1@home": { templateUrl: "templates/home/page1.tpl.html", controller: "home/page1", controllerAs: 'svm' },
         "page2@home": { templateUrl: "templates/home/page2.tpl.html", controller: "home/page2", controllerAs: 'svm' }
     };
     HomeData = {
-        Test:"我是 父控制器 Home数据"
+        Test: "我是 父控制器 Home数据"
     };
     constructor(
         public $scope: ng.IScope,
         public serHelper: serHelper,
     ) {
-        console.log("Home控制器", this);
+        console.debug("Home控制器", this)
     }
     clickToOpen(type: number) {
         switch (type) {

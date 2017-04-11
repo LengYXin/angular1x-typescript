@@ -1,6 +1,6 @@
 
 /**************************************
-   ******       serHelper  所以 自定义服务 综合类
+   ******       serHelper  所有 全局单列 自定义服务 综合类
   ************************************/
 import * as GlobalConfig from '../../config';
 import serHttpInterceptor from './serHttpInterceptor';
@@ -17,6 +17,8 @@ export default class {
         '$state',
         '$stateParams',
         '$http',
+        '$timeout',
+        '$cookies',
         'ngDialog',
         'cfpLoadingBar',
         'toastr',
@@ -25,17 +27,13 @@ export default class {
         'serHTTP',
         'serQiniu'
     ];
-    //提供给外部 ts 提示使用
-    static serHttpInterceptor: serHttpInterceptor;
-    static serStorage: serStorage;
-    static serSession: serSession;
-    static serHTTP: serHTTP;
-
     constructor(
         public $rootScope: ng.IRootScopeService,
         public $state: ng.ui.IStateService,
         public $stateParams: ng.ui.IStateParamsService,
         public $http: ng.IHttpService,
+        public $timeout: ng.ITimeoutService,
+        public $cookies: any,
         public ngDialog: any,
         public cfpLoadingBar: any,
         public toastr: any,
@@ -46,5 +44,8 @@ export default class {
 
     ) {
         GlobalConfig.debug ? console.debug("serHelper", this) : undefined;
+        this.$timeout(x => {
+            this.$rootScope.$pageFinishedLoading = true;
+        });
     }
 }

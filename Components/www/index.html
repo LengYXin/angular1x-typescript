@@ -46,18 +46,12 @@
 </head>
 </head>
 
-<body>
-    <!-- start: Header -->
-    <sam-Header></sam-Header>
-    <!-- end: Header -->
-    <div class="container-fluid container-body">
-        <div class="nav-letf col-xs-2">
-            <sam-Main-Menu></sam-Main-Menu>
+<body ng-app="myMod">
+    <hero-list>
+        <div class="text-center">
+            哈哈哈哈
         </div>
-        <div class="col-xs-10  col-xs-offset-2">
-            <div class="container-main" ui-view=""></div>
-        </div>
-    </div>
+    </hero-list>
     <!-- start: JavaScript-->
     <!--http://www.bootcdn.cn/?    cdn  网站-->
     <script src="assets/js/jquery.min.js"></script>
@@ -79,7 +73,7 @@
     <!--使用2.1.1版本，因为2.2.1版本会报找不到moxie的错误；另外也不用引入moxie.min.js文件-->
     <script src="assets/js/plupload.full.min.js"></script>
     <!--<script src="//cdn.bootcss.com/wangeditor/2.1.20/js/wangEditor.min.js"></script>-->
-    <script src="//cdn.bootcss.com/qiniu-js/1.0.17.1/qiniu.min.js"></script>
+    <!--<script src="//cdn.bootcss.com/qiniu-js/1.0.17.1/qiniu.min.js"></script>-->
     <!--图表-->
     <!--<script src="//cdn.bootcss.com/Chart.js/2.5.0/Chart.min.js"></script>
     <script src="//cdn.bootcss.com/angular-chart.js/1.1.1/angular-chart.min.js"></script>-->
@@ -95,7 +89,33 @@
     <script type="text/javascript" charset="utf-8" src="http://apps.bdimg.com/libs/ueditor/1.4.3.1/lang/zh-cn/zh-cn.js"></script>-->
     <!--百度 UEditor-->
 
-    <script src="dist/app.js"></script>
+    <!--<script src="dist/app.js"></script>-->
+    <script>
+        var myMod = angular.module('myMod', []);
+
+        myMod.component('heroList', {
+            template: '<h1>Home</h1><p>Hello, {{ $ctrl.user.name }} !</p>',
+            controller: 'MainCtrl',
+        });
+        var default_1 = (function() {
+
+            console.log("object");
+
+            function default_1(a, $element) {
+                this.user = {
+                    name: 'world'
+                };
+                console.log(arguments);
+                this.$onInit = function() {
+                    console.log(this);
+                };
+            }
+
+            return default_1;
+        }());
+        default_1.$inject = ['$scope'];
+        myMod.controller('MainCtrl', default_1);
+    </script>
 </body>
 
 </html>

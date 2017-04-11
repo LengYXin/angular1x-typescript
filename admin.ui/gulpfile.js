@@ -63,7 +63,7 @@ gulp.task('watch', function(done) {
         // }
         setTimeout(function() {
             cb();
-        }, 1000);
+        }, 3000);
     }
     // services
     gulp.watch('src/services/**/*.ts', function(event) {

@@ -125,7 +125,7 @@ BuildingPlugin.prototype.controller = function(Catalog1, Catalog2, fileName) {
             if (path.extname(fullname) != ".ts") return;
             var dir = d_name;
             var name = path.basename(fullname, ".ts");
-            var impname = name.replace(".", "_");
+            var impname = dir + "_" + name.replace(".", "_");
             var random = ""; //Math.floor(Math.random() * 1000);
             // var ctl = dir + "$" + name.replace(/-/g, '_');
             // lines.push(dir + name + ctl);
