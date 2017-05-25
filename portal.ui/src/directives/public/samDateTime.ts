@@ -14,17 +14,20 @@ export default class directive implements ng.IDirective {
         datetimepicker: "="
     };
     restrict = 'AE';
-    require = "ngModel";
+    require = "?ngModel";
     replace = true;
     template = `<input type="text">`;
     link(scope: any, element: ng.IRootElementService, attrs: any, ctrl: any) {
+        $("body>div.container-body").on("scroll", x => {
+            $("body>div.xdsoft_datetimepicker").removeAttr("style");
+        });
         //清除节点
         scope.$on("$destroy", function () {
             let datetime = $("body>div.xdsoft_datetimepicker");
             datetime.each(function () {
                 this.remove();
             });
-        })
+        });
         let datetimepicker = scope.datetimepicker || {};
         datetimepicker.format = datetimepicker.datepicker == null || datetimepicker.datepicker ? datetimepicker.timepicker == null || datetimepicker.timepicker ? "Y-m-d h:i" : "Y-m-d" : "H:i";
         datetimepicker.onClose = function () {
@@ -40,10 +43,17 @@ export default class directive implements ng.IDirective {
 
             element.on('change', function () {
                 scope.$apply(function () {
-                    ctrl.$setViewValue(element.val());
+                    if (ctrl) {
+                        ctrl.$setViewValue(element.val());
+                    }
                 });
             });
+            // console.log(datetimepicker);
             element["datetimepicker"](datetimepicker);
+            // element["datetimepicker"]({
+            //     // dayOfWeekStart: 1,
+            //     lang: 'en',
+            // });
             // element.on('click', function () {
             //     element.find("input")["datetimepicker"]({
             //         format: attrs.format || 'Y/m/d h:i',
@@ -53,10 +63,12 @@ export default class directive implements ng.IDirective {
             //     });
             // });
             // element.click();
-            return ctrl.$modelValue;
+            return ctrl ? ctrl.$modelValue : undefined;
         }, function (value) {
-            console.log(value);
+            // console.log(value);
+            if (ctrl) {
             ctrl.$setViewValue(value);
+            }
             unregister();
         });
 

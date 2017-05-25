@@ -1,0 +1,52 @@
+<sam-Panel>
+    <div class="panel-body job-list">
+        <h3 class="panel-title">工作概览</h3>
+        <div class="row text-center">
+            <div class="col-sm-4">
+                <a class="btn btn-block btn-daiban" ui-sref="user.myhandle">
+                    <h3><span ng-bind="vm.workCounts.my_pendings"></span></h3>
+                    <p>我的待办</p>
+                </a>
+            </div>
+            <div class="col-sm-4">
+                <a class="btn btn-block btn-shenqing" ui-sref="user.myapply">
+                    <h3><span ng-bind="vm.workCounts.my_applications"></span></h3>
+                    <p>我的申请</p>
+                </a>
+            </div>
+            <div class="col-sm-4">
+                <a class="btn btn-block btn-kaoqin">
+                    <h3><span>建设中</span></h3>
+                    <p>我的考勤</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body quickway-con">
+        <h3 class="panel-title">快捷通道</h3>
+        <ul style="display:flex; flex-wrap: wrap">
+            <li ng-repeat="t in vm.quickway" style="display: block;width: 25%">
+                <a ng-href="{{t.url}}" ng-bind="t.title"></a>
+            </li>
+        </ul>
+    </div>
+    <div class="panel-body quickway-con">
+        <h3 class="panel-title">新人指南</h3>
+        <ul style="display:flex; flex-wrap: wrap">
+            <li ng-repeat="t in vm.guide" style="display: block;width: 25%" >
+                <a href="javascript:void(0);" ng-bind="t.title" ui-sref="public/guidearticle({id:t.article_id})"></a>
+            </li>
+        </ul>
+    </div>
+ <div class="panel-body quickway-con">
+        <h3 class="panel-title">新人指南</h3>
+        <ul style="display:flex; flex-wrap: wrap">
+            <li >
+                <a href="javascript:void(0);" ui-sref="public/consult({id:1})">咨询</a>
+            </li>
+              <li >
+                <a href="javascript:void(0);" ui-sref="public/feedback({id:1})">反馈</a>
+            </li>
+        </ul>
+    </div>
+</sam-Panel>

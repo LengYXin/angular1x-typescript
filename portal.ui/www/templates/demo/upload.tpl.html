@@ -59,14 +59,18 @@
             <div class="panel-body">
                 <div>
                     <button class="btn btn-primary btn-sm" ngf-select ng-model="vm.imgFile" accept="image/*">选择一个图片</button>
-                    <button class="btn btn-danger btn-sm" ng-disabled="true" ng-click="vm.qiniuBase64()">上传</button>
+                    <button class="btn btn-danger btn-sm" ng-click="vm.qiniuBase64()">上传</button>
                 </div>
                 <br>
                 <div style="width: 250px;height: 250px;background:#E4E4E4;  overflow: hidden;display: inline-block;">
-                    <img-crop image="vm.imgFile | ngfDataUrl" area-type="square" result-image="vm.croppedDataUrl"></img-crop>
+                    <img-crop image="vm.imgFile | ngfDataUrl" result-image="vm.croppedDataUrl"></img-crop>
                 </div>
                 <div style="width: 150px;height: 150px;background:#E4E4E4;  overflow: hidden;display: inline-block;">
                     <img ng-src="{{vm.croppedDataUrl}}" width="150" alt="">
+                </div>
+                <p>成功后图片</p>
+                <div style="width: 150px;height: 150px;background:#E4E4E4;  overflow: hidden;display: inline-block;">
+                    <img ng-src="{{vm.qiniuBase64sourceLink}}" width="150" alt="">
                 </div>
                 <p>image: <br> 数据绑定到的可分配角度表达式。NgImgCrop获取一个图像进行裁剪。</p>
                 <p>result-image: <br>数据绑定到的可分配角度表达式。NgImgCrop将裁剪后的图像的数据uri放入其中。</p>

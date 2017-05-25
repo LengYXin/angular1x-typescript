@@ -21,7 +21,11 @@ module.exports = {
         new webpack.optimize.UglifyJsPlugin({
             warning: false,
             mangle: true,
-            comments: false
+            compress: {
+                warnings: false,
+                drop_debugger: true,
+                drop_console: true
+            }
         }),
         //全局变量
         // new webpack.ProvidePlugin({

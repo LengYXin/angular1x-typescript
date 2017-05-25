@@ -1,0 +1,17 @@
+.apply_detail_con{padding-left: 30px;padding-right: 30px;}
+.ad_title{margin: 0px;height: 60px;line-height: 60px}
+
+.apply-textarea{border-color: #ccc; border-radius:5px; width: 90%;  }
+.ap_adopt,
+.ap_refuse,
+.ap_approval,
+.ap_Reminders
+{ width: 45px;height: 18px; line-height: 18px; border-radius:9px; margin: 0 auto; }
+
+.ap_adopt{background: #3dbd76; color: #fff;}
+.ap_refuse{background: #e9666c;}
+.ap_approval,.ap_Reminders{border: 1px solid #e9666c;color: #e9666c;font-size: 12px;}
+.ap_line{background: #ddd; width: 1px;height: 25px;  margin: 6px auto;overflow: hidden; }
+
+.ap_End{height: 50px;line-height: 50px; width: 50px;background: #c4c4c4;color: #fff;border-radius:50%;margin: 0 auto; }
+.ap_End-success{background: #3dbd76;}

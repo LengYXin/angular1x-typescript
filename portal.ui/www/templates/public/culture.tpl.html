@@ -1,0 +1,24 @@
+<div sam-open-transition>
+    <div class="menu-line mb10"><span class="c39">首页 > </span>易鑫文化 <a href="javascript:window.history.go(-1)" class="pull-right more">返回 <span class="icon-arr-right"></span></a></div>
+    <div class="culture-con">
+        <h3 class="culture-title">易鑫文化</h3>
+        <!--<a href="#" ui-sref="public/culturedtl({id:t.article_id})" ng-repeat="t in vm.pagingConfig.item" ng-bind="t.title"></a>-->
+        <div class="media mt0">
+            <ul>
+                <li ng-repeat="t in vm.pagingConfig.item" ui-sref="public/culturedtl({id:t.article_id})">
+                    <div class="media-left mr20">
+                        <img ng-src="{{t.img_url}}" width="123" height="137" />
+                    </div>
+                    <div class="media-body">
+                        <h4 class="ml20" ng-bind="t.title"></h4>
+                        <p class="c39 ml20 mr40 line-clamp3 line_H-P">
+                            <span ng-bind="t.content"></span>
+                        </p>
+                        <p class="c39 ml20" ng-bind="t.create_date | dateFormat:'yyyy.MM.dd HH:mm'"></p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <sam-Pagingsx ng-hide="vm.pagingConfig.params.pageIndex==1&&vm.pagingConfig.item.length<10||!vm.pagingConfig.item" paging-Config="vm.pagingConfig"></sam-Pagingsx>
+    </div>
+</div>

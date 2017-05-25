@@ -1,0 +1,99 @@
+[{
+        "MenuName": "首页",
+        "icon": "icon-home",
+        "MenuUrl": "home",
+        "role": [],
+        "Menus": []
+    },
+    {
+        "MenuName": "个人中心",
+        "icon": "icon-personal",
+        "MenuUrl": "user.myinfo",
+        "role": [],
+        "Menus": []
+    },
+    {
+        "MenuName": "自助服务",
+        "icon": "icon-zzfw",
+        "MenuUrl": "ser",
+        "role": [],
+        "Menus": []
+    },
+    {
+        "MenuName": "鑫知识库",
+        "icon": "icon-zhishiku",
+        "MenuUrl": "a",
+        "role": [],
+        "Menus": []
+    },
+    {
+        "MenuName": "经理中心",
+        "icon": "icon-zzjg",
+        "MenuUrl": "mg.member",
+        "role": ["mg"],
+        "Menus": []
+    },
+    {
+        "MenuName": "HR中心",
+        "icon": "icon-HRcenter",
+        "MenuUrl": "hr",
+        "role": ["hr"],
+        "Menus": []
+    },
+    {
+        "MenuName": "样本",
+        "icon": "icon-menu",
+        "Menus": [{
+                "MenuName": "Test",
+                "MenuUrl": "demo/test",
+                "Menus": []
+            },
+            {
+                "MenuName": "upload",
+                "MenuUrl": "demo/upload",
+                "Menus": []
+            },
+            {
+                "MenuName": "Editor",
+                "MenuUrl": "demo/Editor",
+                "Menus": []
+            },
+            {
+                "MenuName": "图表",
+                "MenuUrl": "demo/chart",
+                "Menus": []
+            },
+            {
+                "MenuName": "弹框",
+                "MenuUrl": "demo/dialog",
+                "Menus": []
+            },
+            {
+                "MenuName": "数据Table",
+                "MenuUrl": "demo/table",
+                "Menus": []
+            },
+            {
+                "MenuName": "表单",
+                "MenuUrl": "demo/form",
+                "Menus": []
+            },
+            {
+                "MenuName": "Tree树",
+                "MenuUrl": "demo/tree",
+                "Menus": []
+            },
+            {
+                "MenuName": "Tree树测试",
+                "Menus": [{
+                    "MenuName": "Tree",
+                    "Menus": [{
+                        "MenuName": "Tree",
+                        "MenuUrl": "demo/tree",
+                        "Menus": []
+                    }]
+                }]
+            }
+        ]
+    }
+]

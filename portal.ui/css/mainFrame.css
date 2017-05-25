@@ -1,3 +1,9 @@
+/*
+
+   框架主样式
+
+*/
+
 html,
 body {
     background-color: #ccc;
@@ -7,44 +13,11 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
+    font-family: "Microsoft YaHei","微软雅黑",Arial, Helvetica, sans-serif
 }
 
-body {
-    padding-top: 51px;
-    /*padding-bottom: 10px;*/
-}
-
-
-/*导航*/
-
-.navbar-default {
-    background-color: #fff;
-    border: 1px solid blueviolet;
-}
-
-.navbar-fixed-bottom,
-.navbar-fixed-top {
-    z-index: 998;
-}
-
-.nav-letf {
-    position: fixed;
-    /*margin-top: 50px;*/
-    padding-top: 10px;
-    height: 100%;
-    background-color: #fff;
-}
-
-.sidebar {
-    border: 1px solid blueviolet;
-}
-
-.sidebar-menu {
-    overflow: auto;
-}
-
-.sidebar-menu li.active {
-    background-color: #eee;
+hr {
+    margin: 10px;
 }
 
 .container-body {
@@ -57,15 +30,453 @@ body {
 }
 
 .container-main {
-    padding: 10px 15px;
+    display: block!important;
+    padding: 10px 50px;
+    padding-top: 70px;
     min-height: 100%;
-    border: 1px solid blueviolet;
+    min-width: 1100px;
+    overflow-x: auto;
 }
 
+
+/*常用颜色样式*/
+
+input,
+botton {
+    outline: none;
+}
+
+input,
+botton,
+.btn-link,
+.btn-link:hover,
+.btn-link:focus,
+.btn-link:active {
+    text-decoration: inherit;
+}
+
+.btn-link:hover,
+.btn-link:focus {
+    outline: none;
+    color: #e33941;
+}
+
+.btn-danger {
+    border-color: #e9666c;
+}
+
+.btn-danger:hover {
+    background: #e33941;
+    border-color: #e33941;
+}
+
+.c33 {
+    color: #333 !important;
+}
+
+.c36 {
+    color: #666 !important;
+}
+
+.c39 {
+    color: #999 !important;
+}
+
+.c3c {
+    color: #ccc !important;
+}
+
+.ce9 {
+    color: #e9666c !important;
+}
+
+.c8c {
+    color: #8caa57 !important;
+}
+
+.ca1 {
+    color: #a147c0 !important;
+}
+
+.c4a {
+    color: #4aa395 !important;
+}
+
+.c52 {
+    color: #526ad2 !important;
+}
+
+
+/*边距*/
+
+.pt0 {
+    padding-top: 0px !important;
+}
+
+.pt5 {
+    padding-top: 5px !important;
+}
+
+.pt10 {
+    padding-top: 10px !important;
+}
+
+.pt15 {
+    padding-top: 15px !important;
+}
+
+.pt20 {
+    padding-top: 20px !important;
+}
+
+.pt30 {
+    padding-top: 30px !important;
+}
+
+.pt40 {
+    padding-top: 40px !important;
+}
+
+.pl0 {
+    padding-left: 0px !important;
+}
+
+.pl10 {
+    padding-left: 10px !important;
+}
+
+.pl20 {
+    padding-left: 20px !important;
+}
+
+.pr0 {
+    padding-right: 0px !important;
+}
+
+.pr10 {
+    padding-right: 10px !important;
+}
+
+.pr20 {
+    padding-right: 20px !important;
+}
+
+.pl40 {
+    padding-left: 40px !important;
+}
+
+.pr40 {
+    padding-right: 40px !important;
+}
+
+.pb0 {
+    padding-bottom: 0px !important;
+}
+
+.pb5 {
+    padding-bottom: 5px !important;
+}
+
+.pb10 {
+    padding-bottom: 10px !important;
+}
+
+.pb15 {
+    padding-bottom: 15px !important;
+}
+
+.pb20 {
+    padding-bottom: 20px !important;
+}
+
+.pb25 {
+    padding-bottom: 25px !important;
+}
+
+.pb30 {
+    padding-bottom: 30px !important;
+}
+
+.pb35 {
+    padding-bottom: 35px !important;
+}
+
+.pb40 {
+    padding-bottom: 40px !important;
+}
+
+.mt0 {
+    margin-top: 0px !important;
+}
+
+.mt5 {
+    margin-top: 5px !important;
+}
+
+.mt10 {
+    margin-top: 10px !important;
+}
+
+.mt15 {
+    margin-top: 15px !important;
+}
+
+.mt20 {
+    margin-top: 20px !important;
+}
+
+.mt25 {
+    margin-top: 25px !important;
+}
+
+.mt30 {
+    margin-top: 30px !important;
+}
+
+.mt35 {
+    margin-top: 35px !important;
+}
+
+.mb0 {
+    margin-bottom: 0px !important;
+}
+
+.mb5 {
+    margin-bottom: 5px !important;
+}
+
+.mb10 {
+    margin-bottom: 10px !important;
+}
+
+.mb15 {
+    margin-bottom: 15px !important;
+}
+
+.mb20 {
+    margin-bottom: 20px !important;
+}
+
+.mb25 {
+    margin-bottom: 25px !important;
+}
+
+.mb30 {
+    margin-bottom: 30px !important;
+}
+
+.mb35 {
+    margin-bottom: 35px !important;
+}
+
+.mr0 {
+    margin-right: 0px !important;
+}
+
+.mr5 {
+    margin-right: 5px !important;
+}
+
+.mr10 {
+    margin-right: 10px !important;
+}
+
+.mr15 {
+    margin-right: 15px !important;
+}
+
+.mr20 {
+    margin-right: 20px !important;
+}
+
+.mr25 {
+    margin-right: 25px !important;
+}
+
+.mr30 {
+    margin-right: 30px !important;
+}
+
+.mr40 {
+    margin-right: 30px !important;
+}
+
+.ml0 {
+    margin-left: 0px !important;
+}
+
+.ml5 {
+    margin-left: 5px !important;
+}
+
+.ml10 {
+    margin-left: 10px !important;
+}
+
+.ml15 {
+    margin-left: 15px !important;
+}
+
+.ml20 {
+    margin-left: 20px !important;
+}
+
+.ml25 {
+    margin-left: 25px !important;
+}
+
+.ml30 {
+    margin-left: 30px !important;
+}
+
+.ml35 {
+    margin-left: 35px !important;
+}
+
+.ml40 {
+    margin-left: 40px !important;
+}
+
+
+/*按钮宽度*/
+
+.dis-inb {
+    display: inline-block
+}
+
+.w80 {
+    width: 80px;
+}
+
+.w90 {
+    width: 90px;
+}
+
+.w100 {
+    width: 100px;
+}
+
+.w110 {
+    width: 110px;
+}
+
+.w120 {
+    width: 120px;
+}
+
+.w150 {
+    width: 150px;
+}
+
+.w245 {
+    width: 245px !important;
+}
+
+.w300 {
+    width: 300px !important;
+}
+
+.w384 {
+    width: 384px !important;
+}
+
+.w400 {
+    width: 400px !important;
+}
+
+.min-h400 {
+    min-height: 400px
+}
+
+
+/**/
+
+.fz12 {
+    font-size: 12px;
+}
+
+.fz14 {
+    font-size: 14px;
+}
+
+.fz16 {
+    font-size: 16px;
+}
+
+.fz17 {
+    font-size: 17px;
+}
+
+.fz18 {
+    font-size: 18px;
+}
+
+/* 多行截断- ... */
+
+.line-clamp3{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    display: -o-box;
+    display: -ms-box;
+    display: -moz-box;
+    -webkit-line-clamp: 3;
+    -o-line-clamp: 3;
+    -moz-line-clamp: 3;
+    -ms-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    -o-box-orient: vertical;
+    -ms-box-orient: vertical;
+    -moz-box-orient: vertical;
+}
+
+
+/*定位*/
+
+.po-re {
+    position: relative
+}
+
+.po-ab {
+    position: absolute
+}
+
+
+/*分割线*/
+
+.Split-line {
+    background: #f6f8f9;
+    height: 1px;
+    overflow: hidden;
+}
+
+.redstar {
+    color: #e85656;
+    font-size: 18px;
+}
+
+
+/*
+.container-main-con{width: 1000px; margin: 0 auto;}
+*/
+
 .container-main>div[ui-view] {
-    border: 1px solid blueviolet;
+    min-height: 500px;
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+*[href] {
+    cursor: pointer;
+}
+
+.vertical-container {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
 }
 
 
@@ -194,6 +605,34 @@ body {
     visibility: hidden !important;
 }
 
+.tab-content {
+    /*position: relative;*/
+}
+
+.tab-content>.tab-pane {
+    display: block;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 1s;
+    -o-transition: opacity 1s;
+    -webkit-transition: opacity 1s;
+    -moz-transition: opacity 1s;
+    /*width: 100%;*/
+}
+
+.tab-content>.active {
+    visibility: visible;
+    position: relative;
+    opacity: 1
+}
+
+.tab-content .panel {
+    box-shadow: 0 0px 0px rgba(0, 0, 0, .05)
+}
+
 
 /*
  图表
@@ -208,238 +647,251 @@ body {
 }
 
 
-/*天气小图标*/
+/*--------------------功能按钮--------------------*/
 
-.icon_weather_small {
-    /*float: left;*/
+.min-btns-body {
+    position: fixed;
+    width: 40px;
+    bottom: 60px;
+    z-index: 10;
+    /*background-color: red;*/
+    min-height: 150px;
+    right: 10px;
+    transition: all .5s;
+    opacity: 0.5;
+}
+
+
+/*.min-btns-body.min-btns-into {
+    opacity: 1;
+}*/
+
+.min-btns-body:hover {
+    opacity: 1;
+}
+
+.min-btns-body .list-group {
+    margin: 0 0px 5px;
+    color: #999
+}
+
+.min-btns-body .list-group-item {
+    padding: 0;
+    height: 40px;
+    width: 40px;
+    overflow: hidden;
+}
+
+
+/*二维码*/
+
+.min-btns-body .min-btn-img {
+    position: absolute;
+    padding: 5px;
+    transition: all .2s;
+    display: block!important;
+}
+.QRCode-big{padding: 5px;border: 1px solid #eee; background: #fff;height: 110px;width: 110px}
+.min-btns-body .min-or-code .min-btn-img {
+    /*display: none;*/
+    left: 0;
+    opacity: 0;
+    height: 0;
+    width: 0;
+}
+
+.min-btns-body .min-or-code:hover .min-btn-img {
+    /*display: block;*/
+    left: -115px;
+    opacity: 1;
+    height: 100px;
+    width: 100px;
+}
+
+.min-btns-body .min-btns-icon span {
+    font-size: 20px;
     display: inline-block;
-    width: 32px;
-    height: 32px;
-    /*margin: 5px 5px 0 0;*/
-    transform: translateY(10px);
-    background: url(../img/weather_yc_smallicon.png) 0 0 no-repeat;
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    line-height: 40px
 }
 
-.icon_weather_qing_0 {
-    background-position: 0 0;
+
+/*悬浮切换*/
+
+.min-btns-body .min-btns {
+    transition: all .2s;
 }
 
-.icon_weather_qing_1 {
-    background-position: -35px 0;
+.min-btns-body .min-btns:hover {
+    transform: translateY(-50%);
 }
 
-.icon_weather_duoyun_0 {
-    background-position: -70px 0;
+
+/*--------------------功能按钮 END--------------------*/
+
+
+/*选图插件*/
+
+img-crop {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: relative;
+    overflow: hidden
 }
 
-.icon_weather_duoyun_1 {
-    background-position: -105px 0;
+img-crop canvas {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    outline: 0;
+    -webkit-tap-highlight-color: transparent
 }
 
-.icon_weather_yin_0 {
-    background-position: -140px 0;
+
+/*表格样式*/
+
+.table {
+    border-bottom: 1px solid #f6f6f6
 }
 
-.icon_weather_yin_1 {
-    background-position: -175px 0;
+.table>thead>tr>th,
+.table>tbody>tr>th,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>tbody>tr>td,
+.table>tfoot>tr>td {
+    text-align: center;
+    vertical-align: middle;
+    line-height: inherit;
 }
 
-.icon_weather_xiaoyu_0 {
-    background-position: -210px 0;
+.table tr td {
+    color: #666;
 }
 
-.icon_weather_xiaoyu_1 {
-    background-position: -245px 0;
+.table tr th {
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+    font-weight: normal;
+    color: #333;
 }
 
-.icon_weather_zhongyu_0 {
-    background-position: -280px 0;
+.table-btn-box {}
+
+.animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: none;
+    animation-fill-mode: none;
 }
 
-.icon_weather_zhongyu_1 {
-    background-position: -315px 0;
+
+/*表单样式*/
+
+.form-group .control-label {
+    color: #999;
+    font-weight: normal;
+    padding-right: 0px !important;
 }
 
-.icon_weather_dayu_0 {
-    background-position: -350px 0;
+.form-group {
+    margin-bottom: 6px;
 }
 
-.icon_weather_dayu_1 {
-    background-position: -385px 0;
+
+/** 文化列表**/
+
+.culture-con {
+    background: #fff;
+    padding: 10px 30px;
 }
 
-.icon_weather_baoyu_0 {
-    background-position: -420px 0;
+.culture-con .culture-title {
+    border-bottom: 1px solid #efefef;
+    font-size: 15px;
+    height: 45px;
+    line-height: 45px;
+    margin: 0px;
 }
 
-.icon_weather_baoyu_1 {
-    background-position: -455px 0;
+.culture-con .media ul li {
+    list-style: none;
+    border-bottom: 1px solid #f5f5f5;
+    padding-bottom: 30px;
+    padding-top: 30px;
 }
 
-.icon_weather_15 {
-    background-position: -490px 0;
+.culture-con .media .media-body h4 {}
+
+.public-detail {
+    background: #fff;
+    padding: 20px 40px;
 }
 
-.icon_weather_16 {
-    background-position: -525px 0;
+.public-det-title {
+    border-bottom: 1px solid #f5f5f5;
 }
 
-.icon_weather_tedabaoyu_0 {
-    background-position: -560px 0;
+.public-det-title h1 {
+    font-size: 22px;
+    color: #333;
+    padding-bottom: 10px;
 }
 
-.icon_weather_tedabaoyu_1 {
-    background-position: -595px 0;
+.public-detail-con {
+    line-height: 1.5;
+    color: #999;
+    padding: 0px 30px;
 }
 
-.icon_weather_leizhenyu_0 {
-    background-position: -630px 0;
+.public-detail-con img {
+    text-align: center;
+    display: block;
+    max-width: 800px;
+    margin: 10px auto 0px;
 }
 
-.icon_weather_leizhenyu_1 {
-    background-position: -665px 0;
+.article-con {
+    padding: 10px 30px
 }
 
-.icon_weather_zhenyu_0 {
-    background-position: -700px 0;
+.article-list {
+    padding: 5px 0px;
 }
 
-.icon_weather_zhenyu_1 {
-    background-position: -735px 0;
+.article-list p {
+    display: inline;
 }
 
-.icon_weather_yujiaxue_0 {
-    background-position: -770px 0;
+.media,
+.media-body {
+    zoom: 1;
+    overflow: hidden;
+    word-break: break-word;
 }
 
-.icon_weather_yujiaxue_1 {
-    background-position: -805px 0;
+
+/*富文本文件上传*/
+
+.editor-uploader-list {}
+
+.editor-uploader-list>.editor-uploader-item {
+    padding: 8px;
 }
 
-.icon_weather_bingbao_0 {
-    background-position: -840px 0;
+.editor-uploader-list>.editor-uploader-item {
+    padding: 8px;
+    color:#23b7e5;
 }
 
-.icon_weather_bingbao_1 {
-    background-position: -875px 0;
+.message-list .text-left {
+    text-align: left
 }
 
-.icon_weather_dongyu_0 {
-    background-position: -910px 0;
-}
-
-.icon_weather_dongyu_1 {
-    background-position: -945px 0;
-}
-
-.icon_weather_shuangdong_0 {
-    background-position: -980px 0;
-}
-
-.icon_weather_shuangdong_1 {
-    background-position: -1015px 0;
-}
-
-.icon_weather_qingwu_0 {
-    background-position: -1050px 0;
-}
-
-.icon_weather_qingwu_1 {
-    background-position: -1085px 0;
-}
-
-.icon_weather_wu_0 {
-    background-position: -1120px 0;
-}
-
-.icon_weather_wu_1 {
-    background-position: -1155px 0;
-}
-
-.icon_weather_nongwu_0 {
-    background-position: -1190px 0;
-}
-
-.icon_weather_nongyu_1 {
-    background-position: -1225px 0;
-}
-
-.icon_weather_yan_0 {
-    background-position: -1260px 0;
-}
-
-.icon_weather_yan_1 {
-    background-position: -1295px 0;
-}
-
-.icon_weather_shachenbao_0 {
-    background-position: -1330px 0;
-}
-
-.icon_weather_shachenbao_1 {
-    background-position: -1365px 0;
-}
-
-.icon_weather_qiangshachenbao_0 {
-    background-position: -1400px 0;
-}
-
-.icon_weather_qiangshachenbao_1 {
-    background-position: -1435px 0;
-}
-
-.icon_weather_fuchen_0 {
-    background-position: -1470px 0;
-}
-
-.icon_weather_fuchen_1 {
-    background-position: -1505px 0;
-}
-
-.icon_weather_yangsha_0 {
-    background-position: -1540px 0;
-}
-
-.icon_weather_yangsha_1 {
-    background-position: -1540px 0;
-}
-
-.icon_weather_xiaoxue_0 {
-    background-position: -1575px 0;
-}
-
-.icon_weather_xiaoxue_1 {
-    background-position: -1610px 0;
-}
-
-.icon_weather_zhongxue_0 {
-    background-position: -1645px 0;
-}
-
-.icon_weather_zhongxue_1 {
-    background-position: -1680px 0;
-}
-
-.icon_weather_daxue_0 {
-    background-position: -1715px 0;
-}
-
-.icon_weather_daxue_1 {
-    background-position: -1750px 0;
-}
-
-.icon_weather_baoxue_0 {
-    background-position: -1785px 0;
-}
-
-.icon_weather_baoxue_1 {
-    background-position: -1820px 0;
-}
-
-.icon_weather_mai_0 {
-    background-position: -1855px 0;
-}
-
-.icon_weather_mai_1 {
-    background-position: -1890px 0;
+.message-list .text-right {
+    text-align: right
 }

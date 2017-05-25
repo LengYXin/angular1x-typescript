@@ -1,0 +1,34 @@
+<sam-Panel class="organization-main">
+    <div class="panel-body organization-body">
+        <a ng-show="svm.serHelper.$stateParams.id!=0" href="javascript:window.history.go(-1)" class="pull-right more">返回 <span class="icon-arr-right"></span></a>
+        <div class="row text-center" sam-open-transition>
+            <div class="col-xs-6 col-md-2 col-md-offset-5">
+                <a href="javascript:void(0)" class="thumbnail Zuzhi-architecture" sam-open-transition>
+                    <img ng-src="{{svm.organization.findInfo.avatar | img:'avatar'}}">
+                    <span ng-bind="svm.organization.findInfo.name_display"></span>
+                </a>
+            </div>
+        </div>
+        <div class="architecture_dem">
+            <hr/>
+        </div>
+        <div class="row text-center" sam-open-transition ng-show="!svm.Loading">
+            <!--ui-sref="mg.organization({id:t.emplid})"-->
+            <div class="col-xs-6 col-md-2 " ng-repeat="t in svm.organization.TeamMember" ng-click="svm.getOrganization(t.emplid)">
+                <a href="javascript:void(0)" class="thumbnail Zuzhi-architecture">
+                    <img ng-src="{{t.avatar | img:'avatar'}}">
+                    <span ng-bind="t.name_display"></span>
+                </a>
+            </div>
+
+        </div>
+        <div class="vertical-container organization-load" ng-show="(!svm.organization.TeamMember||svm.organization.TeamMember.length<1)&&!svm.Loading">
+            没有数据
+        </div>
+        <div class="vertical-container organization-load ng-hide" ng-show="svm.Loading">
+            <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+</sam-Panel>

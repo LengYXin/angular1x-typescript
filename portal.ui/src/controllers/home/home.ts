@@ -1,49 +1,47 @@
 import { serHelper, serBusiness } from '../../service';
+import notice from './son/notice';
+import culture from './son/culture';
+import teamProfile from './son/teamProfile';
+import calendar from './son/calendar';
+
+
 
 /**
  * 首页控制器
  */
-// export let controllersName: string = "DomeDialog";
+
 export default class controllers {
     //angular 注入   
-    static $inject = ['$scope', 'serHelper'];
+    static $inject = ['$scope', 'serHelper', 'serBusiness'];
     //路由参数
     static $stateParams = [];
     //配置  Views 视图
     static $views: { [name: string]: ng.ui.IState } = {
-        "teamProfile@home": { templateUrl: "templates/home/page/team-profile.tpl.html", controller: "home/teamProfile", controllerAs: 'svm' },
-        "page1@home": { templateUrl: "templates/home/page1.tpl.html", controller: "home/page1", controllerAs: 'svm' },
-        "page2@home": { templateUrl: "templates/home/page2.tpl.html", controller: "home/page2", controllerAs: 'svm' }
+        "teamProfile@home": { templateUrl: "templates/home/son/team-profile.tpl.html", controller: teamProfile, controllerAs: 'svm' },
+        "calendar@home": { templateUrl: "templates/home/son/calendar.tpl.html", controller: calendar, controllerAs: 'svm' },
+        // "notice@home": { templateUrl: "templates/home/page/notice.tpl.html", controller: notice, controllerAs: 'svm' },
+        // "culture@home": { templateUrl: "templates/home/page/culture.tpl.html", controller: culture, controllerAs: 'svm' }
     };
     constructor(
         public $scope: ng.IScope,
         public serHelper: serHelper,
+        public serBusiness: serBusiness,
     ) {
-        console.debug("Home控制器", this);
-       
+        this.init();
     };
-    clickToOpen(type: number) {
-        switch (type) {
-            case 1:
-                this.serHelper.ngDialog.open({ template: 'templates/demo/dialog-a.tpl.html', className: 'ngdialog-theme-default' });
-                break;
-            case 2:
-                this.serHelper.toastr.success('Hello world!', 'Toastr fun!');
-                break;
-            case 3:
-                this.serHelper.toastr.info('Hello world!', 'Toastr fun!');
-                break;
-            case 4:
-                this.serHelper.toastr.warning('Hello world!', 'Toastr fun!');
-                break;
-            case 5:
-                this.serHelper.toastr.error('Hello world!', 'Toastr fun!');
-                break;
-            case 6:
-                this.serHelper.cfpLoadingBar.start();
-                break;
-            default:
-                break;
-        }
+    quickway;
+    friendlink;
+    workCounts;
+    notice;
+    culture;
+    guide;
+    init() {
+        this.quickway = this.serBusiness.serApi.basekv.quickway;
+        this.friendlink = this.serBusiness.serApi.basekv.friendlink;
+        this.workCounts = this.serBusiness.serApi.apply.workCounts;
+        this.notice = this.serBusiness.serApi.notice.homeQueryAll;
+        this.culture = this.serBusiness.serApi.culture.last;
+        this.guide = this.serBusiness.serApi.notice.findGuide("guide");
+        
     }
 }

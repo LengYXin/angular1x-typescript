@@ -1,0 +1,26 @@
+/*个人中心 样式*/
+.myinfo-userlogo{ width: 162px; height: 162px; background: #f7f7f7; border: 1px solid #f7f7f7;
+ margin:0 auto; text-align: center;}
+.myinfo-userlogo img{ width: 160px; height: 160px;}
+.myinfo-userlogo .btn-update{background-color: rgba(0, 0, 0, .4); border: none;
+ height: 26px; line-height: 26px; width: 162px; text-align: center;font-size: 12px; color: #fff;
+ left: -1px;bottom:0px; display: inline-block;outline: none;}
+
+ .myinfo-con .row{ margin-bottom: 10px; color: #666}
+
+ .btn-edit{border: none;background: #fff; color: #5d98c5;outline: none;}
+ .btn-edit:hover{color: #e9666c;}
+
+ /*薪资*/
+ .salary-top{padding:30px 20px;}
+ .Split-line2{
+       background:#f6f6f6; height: 2px;overflow: hidden; margin: 0px 20px;
+    }
+ .salary-top b{color: #e9666c;font-size:20px; }
+ .salary-con{margin: 30px 40px}
+ .salary-detail h3{color: #e9666c; font-size: 20px; margin-top: 0px;margin-bottom: 15px;}
+ .salary-detail h4{font-size: 14px;color: #333}
+ .salary-detail p{font-size: 14px;color: #999;margin-left: 40px;}
+
+ /*我的申请，我的待办*/
+.talign-right{text-align: right;}

@@ -1,0 +1,59 @@
+<sam-Panel>
+
+    <!-- Nav tabs -->
+    <div class="Second-menu-tabs">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#basic" aria-controls="basic" role="tab" data-toggle="tab" ng-click="svm.gethandling()">处理中</a>
+            </li>
+            <li role="presentation">
+                <a href="#jobposition" aria-controls="basic" role="tab" data-toggle="tab" ng-click="svm.gethandled()">已完成</a>
+            </li>
+        </ul>
+    </div>
+    <!-- Tab panes
+    <div class="tab-content" style="min-height: 350px">
+        <div role="tabpanel" class="tab-pane active" id="basic" ng-include="'templates/user/myinfo/basic.tpl.html'"></div>
+        <div role="tabpanel" class="tab-pane" id="jobposition" ui-view="jobposition">已完成</div>
+    </div>
+ -->
+
+    <div class="ml25 mr25">
+        <div class="row form-inline">
+            <div class="col-lg-12 col-md-12 col-sm-12 mt30 mb30">
+                <span class="c39">工作流名称：</span>
+                <input type="text" class="form-control" ng-model="svm.searchContent.TypeName" />
+
+                <span class="c39 ml30">提交日期：</span>
+                <sam-Date-Time datetimepicker="svm.datetimepicker" placeholder="选择日期" ng-model="svm.searchContent.BeginTime" class="form-control"></sam-Date-Time> ~
+                <sam-Date-Time datetimepicker="svm.datetimepicker" placeholder="选择日期" ng-model="svm.searchContent.EndTime" class="form-control"></sam-Date-Time>
+                <button ng-click="svm.searchMyapply()" class="btn btn-danger w80 ml30">查询</button>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 ">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>单号</th>
+                            <th>流程名称</th>
+                            <th>当前审批人</th>
+                            <th>提交日期</th>
+                            <th>当前状态</th>
+                            <th></th>
+                        </tr>
+                        <tr ng-repeat="col in svm.pagingConfig.item">
+                            <!--<td ng-bind="col.apply_id">1</td>-->
+                            <td ng-bind="col.ps_id">1</td>
+                            <td ng-bind="col.title">2</td>
+                            <!--<td ng-bind="col.type | applyType">2</td>-->
+                            <td ng-bind="col.name_display">3</td>
+                            <td ng-bind="col.create_date | dateFormat:'yyyy-MM-dd HH:mm'">4</td>
+                            <td ng-bind="col.status==2?'已通过':col.status==3?'已拒绝':'待审批'">5</td>
+                            <!--<td><a ui-sref="applydetails({id:$index})">详情</a></td>-->
+                            <td><a ng-click="svm.showDetails(col)" href="javascript:void(0);">详情</a></td>
+                        </tr>
+                    </table>
+                    <sam-Pagingsx ng-hide="svm.pagingConfig.params.pageIndex==1&&svm.pagingConfig.item.length<10||!svm.pagingConfig.item" paging-Config="svm.pagingConfig"></sam-Pagingsx>
+
+                </div>
+            </div>
+</sam-Panel>

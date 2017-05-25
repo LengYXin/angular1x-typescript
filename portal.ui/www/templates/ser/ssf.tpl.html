@@ -1,0 +1,62 @@
+<div sam-open-transition>
+    <div class="menu-line mb10">
+        <span class="c39">自助服务 > </span> <span>社保公积金</span>
+        <a href="javascript:window.history.go(-1)" class="pull-right more">返回 <span class="icon-arr-right"></span></a>
+    </div>
+    <div class="ssf-con">    
+    <div class="row">
+        
+        <div class="col-lg-6 col-md-12 col-sm-12 ">
+            <sam-Panel>
+                <div class="panel-body">
+                    <h1 class="ce9">住房公积金</h1>
+                    <ul>
+                        <li ng-repeat="tt in vm.item['住房公积金']">
+                            <span ng-bind="tt.title" ui-sref="ser/ssfd({id:tt.article_id})"></span>
+                        </li>
+                    </ul>
+                </div>
+            </sam-Panel>
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 ">
+            <sam-Panel>
+                <div class="panel-body">
+                    <h1 class="ca1">工伤保险</h1>
+                    <ul>
+                        <li ng-repeat="tt in vm.item['工伤保险']">
+                            <span ng-bind="tt.title" ui-sref="ser/ssfd({id:tt.article_id})"></span>
+                        </li>
+                    </ul>
+                </div>
+            </sam-Panel>
+        </div>
+</div>
+<div class="Split-line ml20 mr20"></div>
+<div class="row">
+        <div class="col-lg-6 col-md-12 col-sm-12 ">
+            <sam-Panel>
+                <div class="panel-body">
+                    <h1 class="c4a">医疗保险</h1>
+                    <ul>
+                        <li ng-repeat="tt in vm.item['医疗保险']">
+                            <span ng-bind="tt.title" ui-sref="ser/ssfd({id:tt.article_id})"></span>
+                        </li>
+                    </ul>
+                </div>
+            </sam-Panel>
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 ">
+            <sam-Panel>
+                <div class="panel-body">
+                    <h1 class="c52">生育保险</h1>
+                    <ul>
+                        <li ng-repeat="tt in vm.item['生育保险']">
+                            <span ng-bind="tt.title" ui-sref="ser/ssfd({id:tt.article_id})"></span>
+                        </li>
+                    </ul>
+                </div>
+            </sam-Panel>
+        </div>
+</div>   
+    </div>
+</div>

@@ -1,9 +1,10 @@
-import { serHelper } from '../../service';
+import { serHelper, serBusiness } from '../../service';
+import * as GlobalConfig from '../../config';
 
 // import 'plupload';
 
 export default class {
-    static $inject = ['$scope', 'serHelper', 'Upload', '$cookies'];
+    static $inject = ['$scope', 'serHelper', 'serBusiness', 'Upload', '$cookies'];
     //路由参数
     static $stateParams = [];
     uploader: any;
@@ -17,6 +18,7 @@ export default class {
     constructor(
         public $scope: ng.IScope,
         public serHelper: serHelper,
+        public serBusiness: serBusiness,
         public Upload: any,
         public $cookies: any,
     ) {
@@ -82,7 +84,7 @@ export default class {
         // });
 
         this.Qiniu.config.init.FileUploaded = (up, file, info) => {
-            var sourceLink = `http://olt0mifi5.bkt.clouddn.com/${file.target_name}?imageView2/2/w/100/q/100/format/png`;
+            var sourceLink = `${GlobalConfig.qiniuConfig.images + file.target_name}?imageView2/2/w/100/q/100/format/png`;
             $scope.$apply(() => {
                 this.qiniu_files.push(sourceLink);
             });
@@ -134,22 +136,11 @@ export default class {
             console.log('ngUpload progress: ' + progressPercentage + '% ');
         });
     }
+    qiniuUpToken = this.serBusiness.serApi.sys.uptoken;
+    qiniuBase64sourceLink;
     qiniuBase64() {
-        var pic = "填写你的base64后的字符串";
-        //注意这个url,可以指定key(文件名), mimeType(文件类型)
-        var url = "http://olt0mifi5.bkt.clouddn.com";
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4) {
-                //这里可以判断图片上传成功,而且可以通过responseText获取图片链接
-                var data = JSON.parse(xhr.responseText)
-                //图片链接就是yourcdnpath.xx/data.key
-                document.getElementById("myDiv").innerHTML = xhr.responseText;
-            }
-        }
-        xhr.open("POST", url, true);
-        xhr.setRequestHeader("Content-Type", "application/octet-stream");
-        xhr.setRequestHeader("Authorization", "UpToken  填写你从服务端获取的上传token");
-        xhr.send(pic);
+        this.serHelper.serQiniu.qiniuBase64(this.croppedDataUrl, this.qiniuUpToken.uptoken).then(x => {
+            this.qiniuBase64sourceLink = `${GlobalConfig.qiniuConfig.images + x.key}?imageView2/2/w/200/q/200/format/png`;
+        });
     }
 }

@@ -6,7 +6,7 @@ import { serHelper, serBusiness } from '../../service';
  * 图表网址 （中文） http://chartjs.cn/
  *                  http://www.bootcss.com/p/chart.js/docs/
  */
-// export let controllersName: string = "DomeDialog";
+ 
 export default class controllers {
     //angular 注入   
     static $inject = ['$scope', 'serHelper', 'serBusiness'];

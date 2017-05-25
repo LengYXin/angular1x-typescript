@@ -1,0 +1,81 @@
+<div class="panel">
+    <div class="panel-heading ">
+        <h3 class="panel-title ">编辑教育经历</h3>
+    </div>
+    <div class="panel-body mr30 ml20 mt30">
+        <div class="form-horizontal">
+            <div class="form-group mb15">
+                <label class="col-lg-3 col-md-3 col-sm-3 control-label">学校性质：</label><span ng-bind="svm.newEduError.school_type_code"
+                    style="color: red;"></span>
+                <div class="col-lg-8 col-md-8 col-sm-8">
+                    <select ng-model="svm.neweduitem.school_type_code" class="form-control" size="1">
+                        <option ng-repeat="s in svm.schoolType" ng-bind="s.name" value="{{s.value}}">请选择</option>
+                    </select>
+                    <!--<input class="form-control" ng-model="svm.neweduitem.school_type_code" placeholder="学校性质"></input>-->
+                </div>
+            </div>
+            <div class="form-group mb15">
+                <label class="col-lg-3 col-md-3 col-sm-3 control-label">入学日期：</label><span ng-bind="svm.newEduError.start_dt"
+                    style="color: red;"></span>
+                <div class="col-lg-8 col-md-8 col-sm-8">
+                    <sam-Date-Time class="form-control" datetimepicker="{timepicker: false}" placeholder="入学日期" ng-model="svm.neweduitem.start_dt"></sam-Date-Time>
+                </div>
+                <!--<input class="form-control" rows="3" ng-model="svm.newworkitem.start_dt" placeholder="入职时间"></input>-->
+            </div>
+            <div class="form-group mb15">
+                <label class="col-lg-3 col-md-3 col-sm-3 control-label">毕业日期：</label><span ng-bind="svm.newEduError.end_dt"
+                    style="color: red;"></span>
+                <div class="col-lg-8 col-md-8 col-sm-8">
+                    <sam-Date-Time class="form-control" datetimepicker="{timepicker: false}" placeholder="毕业日期" ng-model="svm.neweduitem.end_dt"></sam-Date-Time>
+                </div>
+                <!--<input class="form-control" rows="3" ng-model="svm.newworkitem.end_dt" placeholder="离职时间"></input>-->
+            </div>
+            <!--<div class="form-group mb15">
+                <label class="col-lg-3 col-md-3 col-sm-3 control-label">学校代码：</label><span ng-bind="svm.newEduError.school_code"
+                    style="color: red;"></span>
+                <div class="col-lg-8 col-md-8 col-sm-8">
+                    <span ng-bind="svm.neweduitem.school_code"></span>
+                    <input class="form-control" ng-model="svm.neweduitem.school_code" placeholder="学校代码"></input>
+                </div>
+            </div>-->
+            <div class="form-group mb15">
+                <label class="col-lg-3 col-md-3 col-sm-3 control-label">学校名称：</label>
+                <span ng-bind="svm.newEduError.school_descr" style="color: red;"></span>
+                <div class="col-lg-8 col-md-8 col-sm-8" angucomplete-alt id="schoolname" placeholder="可输入学校名称查询" pause="200" 
+                    remote-url="/api/user/searchSchool?s="
+                    remote-url-data-field="data" selected-object="svm.schoolSelected" title-field="school_descr" minlength="1"
+                    input-class="form-control">
+                </div>
+                <!--<div class="col-lg-8 col-md-8 col-sm-8">
+                    <input class="form-control" ng-model="svm.neweduitem.school_descr" placeholder="学校名称"></input>
+                </div>-->
+            </div>
+            <div class="form-group mb15">
+                <label class="col-lg-3 col-md-3 col-sm-3 control-label">学历：</label><span ng-bind="svm.newEduError.edu_lvl"
+                    style="color: red;"></span>
+                <div class="col-lg-8 col-md-8 col-sm-8">
+                    <select ng-model="svm.neweduitem.edu_lvl" class="form-control" size="1">
+                        <option ng-repeat="s in svm.eduLvl" ng-bind="s.name" value="{{s.value}}">请选择</option>
+                    </select>
+                    <!--<input class="form-control" rows="3" ng-model="svm.neweduitem.edu_lvl" placeholder="学历"></input>-->
+                </div>
+            </div>
+            <div class="form-group mb15">
+                <label class="col-lg-3 col-md-3 col-sm-3 control-label">学位：</label><span ng-bind="svm.newEduError.degree"
+                    style="color: red;"></span>
+                <div class="col-lg-8 col-md-8 col-sm-8">
+                    <select ng-model="svm.neweduitem.degree" class="form-control" size="1">
+                        <option ng-repeat="s in svm.degree" ng-bind="s.name" value="{{s.value}}">请选择</option>
+                    </select>
+                    <!--<input class="form-control" rows="3" ng-model="svm.neweduitem.degree" placeholder="学位"></input>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group mb0 mt20">
+        <div class="text-center dialog-footer">
+            <button type="button" class="btn btn-danger w80 mr30" ng-disabled="svm.neweduitem == null" ng-click="svm.saveEduLocal(svm.neweduitem)">确定</button>
+            <button type="button" class="btn btn-default w80" ng-click="closeThisDialog()">取消</button>
+        </div>
+    </div>
+</div>

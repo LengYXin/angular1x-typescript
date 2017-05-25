@@ -1,0 +1,66 @@
+
+<div sam-open-transition>
+    <div class="apply_detail_con">
+
+        <form novalidate class="form-horizontal" style="background-color: #fff;">
+        <div class="apply_detail_top">
+            <h3 class="text-center ad_title" ng-bind="svm.applyDetails.title"></h3>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <sapn class="c39">申请单号：</span><span ng-bind="svm.applyDetails.ps_id"></span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+                    <sapn class="c39">申请时间：</span><span ng-bind="svm.applyDetails.create_date | dateFormat:'yyyy-MM-dd'"></span>
+                </div>
+            </div>
+            <div class="Split-line mt5 mb20" style="height: 2px;"></div>
+        </div>
+
+            <div class="row">
+                <div class="col-lg-10 col-md-10 col-sm-10 min-h400" style="border-right: 1px solid #f3f3f3">
+
+                    <div ng-include="svm.applyDetails.applyUrl"></div>
+                    <div>
+                        <div ng-repeat="h in svm.handleHistory" >
+                            <span ng-bind="h.create_name"></span>
+                            <span ng-bind="h.status=='2'?'通过':'拒绝'"></span>
+                            <span ng-bind="h.create_date | dateFormat:'yyyy-MM-dd HH:mm'"></span>
+                            <div ng-bind="h.opinion"></div>
+                        </div>
+                        
+                        <div ng-if="svm.isHandle && svm.pagingConfig.params.handle==false">
+                            <h5 class="mt10 pt10 pb10">审批意见</h5>
+                            <textarea rows="3" ng-model="svm.applyHandle.opinion"  class="apply-textarea ml10"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 text-center" >
+                    <div class="fz16 mb15">审批进度</div>
+                    <div class="HeadPic" style="text-align: center;" ng-repeat="h in svm.applyDetails.ApprorList">
+                        <!--<img src="/assets/img/tx.png" ng-if="$rootUserContext.avatar.length==0" alt="" class="img-circle" width="50px" height="50px">-->
+                        <img ng-src="{{h.Appror[0].avatar|img}}?imageView2/2/w/50/q/50/format/png"  alt="" class="img-circle" width="50px" height="50px">
+                        <div ng-bind="h.Appror[0].name_display" class="fz14 c33"></div>
+                        <div ng-if="h.Status=='A'" class="ap_adopt"><span class="icon-duigou"></span></div>
+                        <div ng-if="h.Status=='R'" class="ap_refuse">拒绝</div>
+                        <div ng-if="h.Status=='W' && svm.isHandle" class="ap_approval">审批</div>
+                        <div ng-if="h.Status=='W' && svm.isApply" class="ap_Reminders">催办</div>
+                       <div class="ap_line"></div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div class="ap_End">完成</div>
+                    </div>
+                </div>
+            </div>
+            <div class="Split-line mt10 mb10"></div>
+            <div class="text-center pb30 pt20" ng-if="svm.isHandle">
+                <button type="button" class="btn btn-danger w110 mr30" ng-click="svm.agree(svm.applyHandle.opinion)">批准</button>
+                <button type="button" class="btn btn-default w110 mr30" ng-click="svm.refuse(svm.applyHandle.opinion)">驳回</button>
+                <button type="button" class="btn btn-default w110 mr30" ng-click="closeThisDialog()">暂不处理</button>
+            </div>
+            <div class="text-center mt30 pb40 pt20" ng-if="svm.isApply">
+                <button type="button" class="btn btn-default w110 mr30" ng-click="closeThisDialog()">关闭</button>
+            </div>
+        </form>
+
+    </div>
+</div>

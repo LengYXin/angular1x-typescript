@@ -1,0 +1,19 @@
+<div class="panel  full-invisible" sam-Open-Transition removeanimation>
+    <div  class="calendar-header po-re">
+        
+        <h2 class="po-ab" ng-bind="svm.weeks[svm.today.week-1]"></h2>
+        <p class="po-ab" ng-bind="svm.months[svm.today.month]+' / '+svm.today.year"></p>
+        <h3 class="po-ab" ng-bind="svm.today.day"></h3>
+        <div class="btn-group po-ab">
+            <button type="button" class="btn btn-link" ng-click="svm.navigate('prev')"><span class="icon-arr-left"></span></button>
+            <button type="button" class="btn btn-link" ng-click="svm.navigate('next')"><span class="icon-arr-right"></span></button>
+        </div>
+    </div>
+    <!--日历容器-->
+    <div class="calendar-body"></div>
+    <div class="calendar-footer text-center">
+        <span class="soon mr40">即将开始</span>
+        <span class="wait mr40">未开始</span>
+        <span class="end">已结束</span>
+    </div>
+</div>

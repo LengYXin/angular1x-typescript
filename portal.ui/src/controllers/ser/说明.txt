@@ -1,0 +1,17 @@
+ 精彩活动                       inside-a.ts
+ 精彩活动详情                   inside-ad.ts
+ 立即推荐                       inside-tj.ts
+ 职位详情                       inside-zw.ts
+ 内部推荐                       inside.ts
+ 办理居住证                     live.ts
+ 办理证明                       prove.ts
+ 内推文章详情                   push-ad.ts
+ 离职申请                       quit.ts
+ 公章使用                       seal.ts
+ 自助服务                       ser.ts
+ 新房                           ssf-r.ts
+ 社保公积金                     ssf.ts
+ 福利免息购车                   welfare.ts
+
+
+

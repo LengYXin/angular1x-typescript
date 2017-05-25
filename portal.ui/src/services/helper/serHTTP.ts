@@ -5,12 +5,13 @@
 import * as GlobalConfig from '../../config';
 export default class {
     static $type = GlobalConfig.EnumServicesType.service;
-    static $inject = ['$http', 'toastr', 'cfpLoadingBar', '$cookies'];
+    static $inject = ['$http', 'toastr', 'cfpLoadingBar', '$cookies', '$q'];
     constructor(
         private $http: ng.IHttpService,
         private toastr: any,
         private cfpLoadingBar: any,//进度条
         private $cookies: any,
+        private $q: ng.IQService,
     ) {
         // let host = $cookies.get("debug_host");
         // if (host == undefined) {
@@ -32,34 +33,82 @@ export default class {
     //         this.$cookies.put('debug_host', GlobalConfig.apiMainUrl);
     //     }
     // }
-    http_wrapper(url: string, config?: ng.IRequestShortcutConfig): string {
-        this.cfpLoadingBar.start();
+    http_wrapper(url: string): string {
+        // this.cfpLoadingBar.start();
         // GlobalConfig.debug ? console.debug("Get请求", url + JSON.stringify(config && config.params && config.params)) : undefined;
         let urlStr: string;
         if (url.indexOf("http://") === -1) {
+            if (url.indexOf('/') == 0) {
+                url = url.substr(1, url.length);
+            }
             urlStr = GlobalConfig.apiMainUrl + url;
         } else {
             urlStr = url;
         }
         return urlStr;
     }
-    // get 请求
+    // get 请求  弃用
     get<T>(url: string, config?: ng.IRequestShortcutConfig) {
         // GlobalConfig.debug ? console.debug("Get请求 ：" + url, config) : undefined;
-        const urlStr = this.http_wrapper(url, config);
+        const urlStr = this.http_wrapper(url);
+        if (!config) {
+            config = {};
+        }
+        if (!config.params) {
+            config.params = {};
+        }
+        config.params.resTime = new Date().getTime();
         return new HttpSuccess(this.$http.get<T>(urlStr, config), this.toastr, this.cfpLoadingBar);
     }
-    // post 请求
+    //get 请求  最新版
+    getIPromise<T>(url: string, config?: ng.IRequestShortcutConfig): ng.IPromise<any> {
+        const urlStr = this.http_wrapper(url);
+        return <any>this.$q((sus, err) => {
+            if (!config) {
+                config = {};
+            }
+            if (!config.params) {
+                config.params = {};
+            }
+            config.params.resTime = new Date().getTime();
+            this.$http.get<T>(urlStr, config).then(x => {
+                new HttpSuccess(null, this.toastr, this.cfpLoadingBar).implementCallback(x.data, x.config, sus, err);
+            }).catch(x => {
+                err(x);
+            });
+        });
+    }
+
+    // post 请求 弃用
     post<T>(url: string, data: any, config?: ng.IRequestShortcutConfig) {
         // GlobalConfig.debug ? console.debug("Post请求 ：" + url, data) : undefined;
-        const urlStr = this.http_wrapper(url, config);
+        let urlStr = this.http_wrapper(url);
+        urlStr += "?resTime=" + new Date().getTime();
         return new HttpSuccess(this.$http.post<T>(urlStr, data, config), this.toastr, this.cfpLoadingBar);
     }
+    // post 请求 最新版
+    postIPromise<T>(url: string, data: any, config?: ng.IRequestShortcutConfig): ng.IPromise<any> {
+        let urlStr = this.http_wrapper(url);
+        urlStr += "?resTime=" + new Date().getTime();
+        return <any>this.$q((sus, err) => {
+            this.$http.post<T>(urlStr, data, config).then(x => {
+                new HttpSuccess(null, this.toastr, this.cfpLoadingBar).implementCallback(x.data, x.config, sus, err);
+            }).catch(x => {
+                err(x);
+            });
+        });
+    }
     //测试 使用
-    getTest<T>(url: string, config?: ng.IRequestShortcutConfig) {
+    getTest<T>(url: string, config?: ng.IRequestShortcutConfig): ng.IPromise<any> {
         // GlobalConfig.debug ? console.debug("Get请求", url + JSON.stringify(config && config.params && config.params)) : undefined;
-        const urlStr = this.http_wrapper(url, config);
-        return new HttpSuccess(this.$http.get<T>(urlStr, config), this.toastr, this.cfpLoadingBar);
+        const urlStr = this.http_wrapper(url);
+        return <any>this.$q((sus, err) => {
+            this.$http.get<T>(urlStr, config).then(x => {
+                sus(x);
+            }).catch(x => {
+                err(x);
+            });
+        });
     }
 }
 /**
@@ -71,9 +120,9 @@ export default class {
  */
 class HttpSuccess<T> {
     constructor(
-        private http: ng.IHttpPromise<T>,
-        private toastr: any,//弹框组件
-        private cfpLoadingBar: any,//进度条
+        private http?: ng.IHttpPromise<T>,
+        private toastr?: any,//弹框组件
+        private cfpLoadingBar?: any,//进度条
     ) {
 
     }
@@ -88,43 +137,80 @@ class HttpSuccess<T> {
             this.cfpLoadingBar.complete();
             switch (status) {
                 case 200:
-                    //状态吗为 200的情况下 为成功
-                    if (data.code === 200) {
-                        GlobalConfig.debug ? console.debug(`${config.method} = ${config.url} --`, data) : undefined;
-                        callback(data.data, data.count_page, data.count);
-                    } else if (data.code === 10001) {
-                        console.info("UserSessionMissing", data); //todo:callback-url
-                        window.location.href = "/login.html";
-                    } else {
-                        this.errorCallback(data.data);
-                        this.toastr.error(`${data.data}`, 'API Error', { timeOut: 3000 });
-                        console.error("API Error", data);
-                    }
+                    this.implementCallback(data, config, callback);
                     break;
                 default:
                     this.errorCallback();
-                    this.toastr.error(`
+                    if (GlobalConfig.debug) {
+                        this.toastr.error(`
                     <br/>
                     <p>装填吗=${status}</p>
                     <p>请求地址=${config.url}</p>
-                    <p>参数=${JSON.stringify(config.params)}</p>
+                    <p>参数=${JSON.stringify(config.params || config.data)}</p>
                     `, '访问出错！！！', { timeOut: 3000 });
-                    console.error("访问出错", status);
+                    }
+                    console.error("访问出错", status, config);
                     break;
             }
 
         });
         return this;
     }
+    toastrOption = { timeOut: 3000, allowHtml: true };
+    implementCallback(data, config: ng.IRequestConfig, callback, errorCallback?) {
+        // console.log(data);
+        switch (data.code) {
+            case 0: // 状态吗为 0的情况下 为成功
+            case 200:
+                callback(data.data);
+                break;
+            case 1001:   //token过期或无效  没登陆
+            case 100:
+                if (GlobalConfig.debug) {
+                    this.toastr.error(`
+                 <p>请求地址=${config.url}</p>
+                ${data.data}`, 'API Error', this.toastrOption);
+                }
+                errorCallback ? errorCallback(data.data) : undefined;
+                // window.location.href = "/login.html?jumpto=" + window.location.href;
+                setTimeout(function () {
+                    window.location.href = "login.html";
+                }, 1000);
+                break;
+            case 101:
+            case 102:
+            case 103:
+                if (GlobalConfig.debug) {
+                    this.toastr.error(`
+                 <p>请求地址=${config.url}</p>
+                ${data.data}`, 'API Error', this.toastrOption);
+                }
+                errorCallback ? errorCallback(data.data) : undefined;
+                break;
+            default:
+                // callback(data);
+                this.errorCallback(data.data);
+                errorCallback ? errorCallback(data.data) : undefined;
+                if (GlobalConfig.debug) {
+                    this.toastr.error(`
+                 <p>请求地址=${config.url}</p>
+                ${data.data}`, 'API Error', this.toastrOption);
+                }
+                console.error("API Error", data);
+                break;
+        }
+    }
     error(callback) {
         this.errorCallback = callback;
         this.http.error((data: any, status: number, headers: ng.IHttpHeadersGetter, config: ng.IRequestConfig) => {
-            this.toastr.error(`
+            if (GlobalConfig.debug) {
+                this.toastr.error(`
                     <br/>
                     <p>装填吗=${status}</p>
                     <p>请求地址=${config.url}</p>
                     <p>参数=${JSON.stringify(config.params)}</p>
-                    `, '访问出错！！！', { timeOut: 3000 });
+                    `, '访问出错！！！', this.toastrOption);
+            }
             this.cfpLoadingBar.complete();
             callback(data);
         });

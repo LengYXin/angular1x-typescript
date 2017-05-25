@@ -1,0 +1,308 @@
+/*
+
+   经理中心&hr中心 样式
+
+*/
+
+
+/*团队成员列表*/
+
+.mg-member-list {
+    border: 1px solid red;
+}
+
+.mg-member-list .mg-member-item {
+    padding: 10px;
+}
+
+
+/*.mg-member-list .list-group-item {
+    padding-left: 80px;
+    position: relative;
+}*/
+
+.mg-member-list .list-group-item:hover {
+    color: #555;
+    text-decoration: none;
+    background-color: #f8f8f8;
+}
+
+.mg-member-list .list-group-item>.mg-member-item {
+    padding-left: 90px;
+    position: relative;
+}
+
+.mg-member-list .list-group-item>.mg-member-item>* {
+    margin: 5px 0;
+}
+/* 团队成员用户头像 */
+.mg-member-list .list-group-item>.mg-member-item>img.img-circle {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    left: 5px;
+}
+
+
+/*.mg-member-list .mg-member-item>.list-group-item>.list-group.mg-member-list {
+    padding: 10px;
+}*/
+
+.mg-member-item-contact {
+    display: flex;
+    display: -webkit-flex;
+}
+
+.mg-member-item-contact>span {
+    flex: 1;
+    -ms-flex: 1;
+}
+
+
+/*团队成员-搜索*/
+
+.define_search{ 
+    width:380px;    
+}
+
+.define_search button{
+    right: 5px;
+    top: 4px;
+    border: 0;
+    font-size: 20px;
+    outline: none;
+    background: initial;
+    
+}
+
+.define_search button .icon-search{
+     color: #ccc;
+}
+
+.define_team{
+    padding:0px 50px;
+}
+
+.define_team .mg-member-list{
+    border:0px;
+}
+
+.define_team h4{
+      border-bottom: 2px solid #f7f7f7;        
+}
+
+.define_team .mg-member-list .list-group-item{
+      padding: 20px 0px;
+      border:0px;
+      border-bottom: 1px dashed #f2f2f2;
+      border-radius: 0px;
+
+}
+
+.define_team .mg-member-list .list-group-item:hover{
+    background-color: #f6f6f6;
+}
+
+/*ta 的团队*/
+.define_team .mg-member-list .list-group-item .mg-member-item p a{ color: #23b7e5; }
+
+
+/* 职位信息-共用 */
+.position_information{
+    border-radius: 2px;
+    font-size: 12px;   
+    color: #fff;
+    text-align: center;
+    line-height: 18px;
+    padding: 2px 3px;    
+    margin-left:6px;
+}
+
+/* 全职 */
+.Btn-full-time{
+    background: #23b7e5;     
+}
+
+/* 试用期 */
+.Btn-trial{
+      background: #915da3;  
+}
+
+/* 实习 */
+.Btn-internship{
+    background: #8caa57;
+}
+
+/*下拉图标 */
+.define-arr_down{
+    margin: 0px;
+    margin-top: 4px;
+    color: #23b7e5;
+    margin-left: 8px;
+}
+
+.team_list-Open{
+    border: 1px solid #d9d9d9 !important;   
+    padding:15px 20px;
+    margin-top: 20px; 
+    background: #fff;
+    position: relative;
+    border-radius: 6px;    
+}
+
+.team_list-Open::after{
+    width:0; 
+    height:0; 
+    content: "";
+    position: absolute;
+    top:-9px;
+    right:4%;
+    border-left:10px solid transparent;
+    border-right:10px solid transparent;
+    border-bottom:10px solid #fff;
+    z-index: 112;
+}
+
+.team_list-Open::before{
+    width:0; 
+    height:0; 
+    content: "";
+    position: absolute;
+    top:-10px;
+    right:4%;
+    border-left:10px solid transparent;
+    border-right:10px solid transparent;
+    border-bottom:10px solid #d9d9d9;
+    z-index: 111;
+}
+
+.team_list-Content{
+    background: #fff;      
+}
+
+/*团队成员-字体*/
+.define_team-content .list-group-item .mg-member-item h3{
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+    float:left;
+}
+
+.define_team-content .list-group-item .mg-member-item .mg-member-item-position{
+    float: left !important;
+    margin:20px 10px 0px;
+    color: #999;
+}
+
+.define_team-content .list-group-item .mg-member-item .mg-member-item-contact{
+    clear: both;
+    color:#999;
+}
+
+/*组织架构*/
+.organization-main {
+    position: relative;
+}
+
+.organization-body,
+.organization-load {
+    min-height: 650px;
+}
+
+.Zuzhi-architecture{
+    text-align: center;
+    display: inline-block;
+    border:1px solid #efefef;
+    border-radius: 2px;
+    position: relative;
+}
+
+.Zuzhi-architecture::before{
+    width:0; 
+    height:0; 
+    position: absolute;
+    content: "";
+    bottom: -6px;
+    right:-1px;
+    border-top:10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid #c4c4c5;
+    transform: rotate(45deg);
+    -ms-transform:rotate(45deg); 	/* IE 9 */
+    -moz-transform:rotate(45deg); 	/* Firefox */
+    -webkit-transform:rotate(45deg); /* Safari 和 Chrome */
+    -o-transform:rotate(45deg); 	/* Opera */
+
+}
+
+.Zuzhi-architecture img{
+   width:84px;
+   height:84px;
+   border-radius: 50%;
+   margin:10px 15px;
+}
+
+.Zuzhi-architecture span{
+    color:#7a7b7d ;
+}
+
+
+a.Zuzhi-architecture:hover{
+       border:1px solid #ededed;
+}
+
+.architecture_dem {
+    width: 86%;
+    display: block;
+    margin: 10px auto 20px;
+    position: relative;
+}
+
+.architecture_dem hr{ 
+    margin:0px;
+ }
+
+.architecture_dem hr::before{
+    width: 1px;
+    height: 13px;
+    content: "";
+    position:absolute ;
+    top:-13px;
+    left: 50%;
+    border-left: 1px solid #e5e5e5;
+}
+
+.architecture_dem::after{
+    width:1px;
+    height: 11px;
+    content: "";
+    right:0px;
+    position: absolute;
+    border-left:1px solid #e5e5e5;
+}
+
+.architecture_dem::before{
+    width:1px;
+    height: 11px;
+    content: "";
+    position: absolute;
+    border-left:1px solid #e5e5e5;
+}
+
+/*HR-中心*/
+.define_team .HR_define .mg-member-item h3{
+    margin-top: 10px;
+    float: none;
+}
+
+.define_team .HR_define .mg-member-item img{
+   border-radius: 4px;
+}
+
+.HR_team{
+    padding:0px;
+    color:#666;
+    margin-top: 0px !important;
+    margin-bottom: 3px !important;
+    
+}

@@ -3,7 +3,7 @@ import { serHelper, serBusiness } from '../../service';
 /**
  * 首页控制器
  */
-// export let controllersName: string = "DomeDialog";
+ 
 export default class controllers {
     //angular 注入   
     static $inject = ['$scope', 'serHelper'];

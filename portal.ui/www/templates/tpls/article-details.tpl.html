@@ -1,0 +1,50 @@
+<header class="text-center public-det-title">
+    <h1 ng-bind="vm.details.title"></h1>
+    <p class="c39">
+        <sapn class="mr30" ng-if="vm.details.author_uname.length>0">来源：<span ng-bind="vm.details.author_uname"></span></sapn>
+        <span class="mr30"  ng-bind="vm.details.create_date | dateFormat:'yyyy.MM.dd HH:mm'"></span>
+        <sapn ng-if="!vm.CommentClose" >评论：<span ng-bind="vm.details.comment_count"></span></sapn>
+    </p>
+</header>
+<div ng-bind-html="vm.details.content | trustAsHtml" class="public-detail-con mt20"></div>
+<div style="position: relative;height:30px">
+    <div class="po-ab" style="right: 40px;" ng-click="vm.addpushLike(vm.details)" href="">
+        <span class="icon-zan " ng-class="{true:'ce9',false:'c4a'}[vm.details.isLike=='是']"></span>
+        <span class="c39 fz12" ng-bind="vm.details.like_count">0</span>
+    </div>
+</div>
+<div class="article-con" ng-if="vm.details&&!vm.CommentClose">
+    <form class="form-inline" ng-submit="vm.submit(vm.details,vm.details.type,0)">
+        <!-- menus="unorderlist,orderlist,emotion" 表示显示的菜单 属性为空或不存在则显示全部菜单 -->
+        <sam-Editor menus="unorderlist,orderlist,emotion" ng-model="vm.details.Editor" style="width:100%;height:150px;"></sam-Editor>
+        <button type="submit" ng-disabled="vm.details.submitBtnState" class="btn btn-sm btn-success btn-danger mt10">
+        <i class="fa fa-dot-circle-o"></i> 发表评论</button>
+    </form>
+    <hr class="mr0 ml0 mt25" />
+    <section>
+        <article class="media public-det-title mb10 pt10 c36" sam-open-transition removeanimation ng-repeat="t in vm.pagingConfig.item">
+            <section class="media-left pr20">
+                <a href="javascript:void(0)">
+                    <img class="media-object img-circle define_imgPL" ng-src="{{t.avatar | img:'avatar'}}?imageView2/2/w/48/q/80/format/png" style="width: 48px;height: 48px;">
+                </a>
+            </section>
+            <section class="media-body">
+                <div class="article-list">
+                    <span class="ce9" ng-bind="t.createName"></span>： <span ng-show="t.toCommentId>0">回复：<span ng-bind="t.toUname"></span> </span>
+                </div>
+                <div ng-bind-html="t.comment | trustAsHtml">
+                </div>
+                <p class="c3c">
+                    <time pubdate datetime="" ng-bind="t.createDate | dateFormat:'yyyy.MM.dd HH:mm'"></time>
+                    <span class="pull-right c39" ng-click="t.EditorShow=!t.EditorShow" href="javascript:void(0)"><span class="icon-comment"></span> <span class="fz12">回复</span></span>
+                </p>
+            </section>
+            <form ng-if="t.EditorShow" class="form-inline" ng-submit="vm.submit(t,vm.details.type,t.id)">
+                <sam-Editor menus="unorderlist,orderlist,emotion" ng-model="t.Editor" style="width:100%;height:150px;"></sam-Editor>
+                <button type="submit" ng-disabled="t.submitBtnState" class="btn btn-sm btn-success btn-danger mt10"><i class="fa fa-dot-circle-o"></i> 回复评论</button>
+            </form>
+        </article>
+        <sam-Pagingsx ng-hide="vm.pagingConfig.params.pageIndex==1&&vm.pagingConfig.item.length<10||!vm.pagingConfig.item" paging-Config="vm.pagingConfig"></sam-Pagingsx>
+</div>
+
+</section>

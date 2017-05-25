@@ -11,13 +11,22 @@ export default class directive implements ng.IDirective {
 
     }
     scope = {
-        samEcharts: "="
+        samEcharts: "=",
+        samMychart: "="
     };
     restrict = 'AE';
     replace = true;
     link(scope: ng.IScope, element: ng.IRootElementService, attrs: any, ctrl: any) {
+        // console.log(element);
         if (scope.samEcharts) {
-            window["echarts"].init(element[0]).setOption(scope.samEcharts);
+            var myChart = window["echarts"].init(element[0]);
+            myChart.setOption(scope.samEcharts);
+            window.addEventListener("resize", x => {
+                myChart.resize();
+            });
+            if (scope.samMychart) {
+                scope.samMychart = myChart;
+            }
         }
 
     };

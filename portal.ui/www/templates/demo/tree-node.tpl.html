@@ -1,6 +1,7 @@
 <li class="parent_li">
     <span class="badge badge-success" ng-bind="t.MenuName" ng-click="vm.onclick(t)"></span>
+    <button type="button" ng-click="vm.onadd(t)">添加</button>
     <ul ng-if='t.Menus.length>0'>
-        <sam-Tree-Node templateurl="tpls/demo/tree-node.tpl.html" ng-repeat="t in t.Menus"></sam-Tree-Node>
+        <sam-Tree-Node templateurl="templates/demo/tree-node.tpl.html" ng-repeat="t in t.Menus"></sam-Tree-Node>
     </ul>
 </li>

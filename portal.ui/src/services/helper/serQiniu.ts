@@ -1,12 +1,42 @@
-
+import * as GlobalConfig from '../../config';
+import { serHelper, serBusiness } from '../../service';
 /**
  * 七牛  每次 调用Qiniu 方法都会创建一个新的 qiniu 对象
  */
 export default class {
-    constructor() { }
+    static $inject = ['$q'];
+    constructor(
+        private $q: ng.IQService,
+        // private serBusiness: serBusiness,
+    ) { }
+
+   /**
+    * 上传 base64 编码到七牛云
+    * @param base64 
+    * @param uptoken 七牛 uptoken
+    */
+    qiniuBase64(base64, uptoken): ng.IPromise<any> {
+        return <any>this.$q((resolve, reject) => {
+            var url = `http://up-z1.qiniu.com/putb64/-1`;
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    //这里可以判断图片上传成功,而且可以通过responseText获取图片链接
+                    var data = JSON.parse(xhr.responseText);
+                    resolve(data);
+                    //图片链接就是yourcdnpath.xx/data.key
+                    // document.getElementById("myDiv").innerHTML = xhr.responseText;
+                } 
+            }
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/octet-stream");
+            xhr.setRequestHeader("Authorization", "UpToken " + uptoken);
+            xhr.send(base64.replace("data:image/png;base64,", ""));
+        });
+    }
     /**
-     *  调用会创建一个新的 qiniu 对象
-     */
+    *  调用会创建一个新的 qiniu 对象
+    */
     Create() {
         return new qiniu();
     }
@@ -18,7 +48,7 @@ class qiniu {
     config = {
         runtimes: 'html5,flash,html4',   //上传模式,依次退化
         browse_button: 'pickfiles',       //上传选择的点选按钮，**必需**
-        uptoken_url: '/qiniu/UpToken',
+        uptoken_url: GlobalConfig.qiniuConfig.uptoken_url,
         //Ajax请求upToken的Url，**强烈建议设置**（服务端提供）
         // uptoken : '<Your upload token>',
         //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
@@ -26,7 +56,7 @@ class qiniu {
         // 默认 false，key为文件名。若开启该选项，SDK会为每个文件自动生成key（文件名）
         // save_key: true,
         // 默认 false。若在服务端生成uptoken的上传策略中指定了 `sava_key`，则开启，SDK在前端将不对key进行任何处理
-        domain: 'http://olt0mifi5.bkt.clouddn.com',
+        domain: GlobalConfig.qiniuConfig.domain,
         //bucket 域名，下载资源时用到，**必需**
         // container: containerId,           //上传区域DOM ID，默认是browser_button的父元素，
         max_file_size: '1000mb',         //最大文件体积限制
@@ -89,7 +119,7 @@ class qiniu {
 
     }
     Error(up, err, errTip) {
-        console.log("Error  当您看到这条信息表明没有配置回调");
+        console.log("Error  当您看到这条信息表明没有配置回调", up, err, errTip);
 
     }
     UploadComplete() {

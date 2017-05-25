@@ -1,0 +1,98 @@
+<sam-Panel>
+
+    <div class="row pt40 pb25">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <div class="myinfo-userlogo po-re">
+                <img ng-src="{{svm.userlogo| img}}">
+                <a href="javascript:void(0);" class="btn-update po-ab" ng-click="svm.showEditUserLogo()">编辑头像</a>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9">
+            <div class="row">
+                <div class="col-lg-12 myinfo-name">
+                    <h4 ng-bind="svm.myInfo.myinfo.name_display" class="mt0"></h4>
+                    <p class="c39 mb10"><span ng-bind="svm.myInfo.myinfo.deptname"></span> - <span ng-bind=" svm.myInfo.myinfo.jobcode_desc"></span></p>
+                </div>
+            </div>
+
+            <div class="myinfo-con">
+                <div class="row ">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <span class="c39">工号：</span>
+                        <span ng-bind="svm.myInfo.myinfo.emplid"></span>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <span class="c39">员工类型：</span>
+                        <span ng-bind="svm.myInfo.myinfo.empl_class"></span>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <span class="c39">直接上级：</span>
+                        <span ng-bind="svm.myInfo.myinfo.supervisor_name"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <span class="c39">职级：</span>
+                        <span ng-bind="svm.myInfo.myinfo.supv_level"></span>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <span class="c39">工作地点：</span>
+                        <span ng-bind="svm.myInfo.myinfo.yc_wrk_city"></span>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <span class="c39">入职日期：</span>
+                        <span ng-bind="svm.myInfo.myinfo.hire_dt"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <span class="c39">电话：</span>
+                        <span ng-bind="svm.myInfo.myinfo.mobile"></span>
+                        <span><button ng-click="svm.showChangeTel(svm.myInfo.myinfo.mobile)" class="btn-edit"><span class="icon-edit"></span></button></span>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <span class="c39">Email：</span>
+                        <span ng-bind="svm.myInfo.myinfo.email_addr"></span>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <span class="c39">转正日期：</span>
+                        <span ng-bind="svm.myInfo.myinfo.probation_dt"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <span class="c39">公司：</span>
+                        <span ng-bind="svm.myInfo.myinfo.comp_descr"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="Split-line mt25"></div>
+    <!--animation 是动画 -->
+    <!-- Nav tabs -->
+    <div class="Second-menu-tabs">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#basic" aria-controls="basic" role="tab" data-toggle="tab">基本信息</a></li>
+            <li role="presentation"><a href="#jobposition" aria-controls="basic" role="tab" data-toggle="tab" ng-click="svm.showMyjobpos()">职务信息</a></li>
+            <li role="presentation"><a href="#work" aria-controls="work" role="tab" data-toggle="tab">工作经历</a></li>
+            <li role="presentation"><a href="#edu" aria-controls="edu" role="tab" data-toggle="tab">教育经历</a></li>
+            <li role="presentation"><a href="#family" aria-controls="family" role="tab" data-toggle="tab">家庭成员</a></li>
+            <li role="presentation"><a href="#contract" aria-controls="contract" role="tab" data-toggle="tab">合同信息</a></li>
+            <!--<li role="presentation"><a href="#driving" aria-controls="driving" role="tab" data-toggle="tab">驾照信息</a></li>-->
+        </ul>
+    </div>
+    <!-- Tab panes -->
+    <div class="tab-content pl40 pr40 pb40" style="min-height: 350px">
+        <!--基本信息-->
+        <div role="tabpanel" class="tab-pane active" id="basic" ng-include="'templates/user/myinfo/basic.tpl.html'"></div>
+        <div role="tabpanel" class="tab-pane" id="jobposition" style="padding-top:30px;">
+             <div class="sam-Echarts" ng-if="svm.option" sam-Echarts="svm.option"></div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="work" ng-include="'templates/user/myinfo/myworks.tpl.html'">工作经历</div>
+        <div role="tabpanel" class="tab-pane" id="edu" ng-include="'templates/user/myinfo/myedu.tpl.html'">教育经历</div>
+        <div role="tabpanel" class="tab-pane" id="family" ng-include="'templates/user/myinfo/myfamily.tpl.html'">家庭成员</div>
+        <div role="tabpanel" class="tab-pane" id="contract" ng-include="'templates/user/myinfo/mycontract.tpl.html'">合同信息</div>
+        <!--<div role="tabpanel" class="tab-pane" id="driving" ui-view="driving">驾照信息</div>-->
+    </div>
+</sam-Panel>

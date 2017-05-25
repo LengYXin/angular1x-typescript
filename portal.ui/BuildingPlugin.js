@@ -114,7 +114,7 @@ BuildingPlugin.prototype.controller = function(Catalog1, Catalog2, fileName) {
     var url = path.join(__dirname, Catalog1, Catalog2);
     lines.push("/*此文件由node自动生成 无需修改 （BuildingPlugin.js） */");
     lines.push("//controller");
-    lines.push("let modularList: yxInterface.ControllerModular[] = [];");
+    lines.push("let modularList: yxInterface.IControllerModular[] = [];");
     fs.readdirSync(url).forEach(function(d_name) {
         var d_info = fs.statSync(path.join(url, d_name));
         if (!d_info.isDirectory()) return;
@@ -125,14 +125,15 @@ BuildingPlugin.prototype.controller = function(Catalog1, Catalog2, fileName) {
             if (path.extname(fullname) != ".ts") return;
             var dir = d_name;
             var name = path.basename(fullname, ".ts");
-            var impname = dir + "_" + name.replace(".", "_");
+            var impname = (dir + "_" + name).replace(/[`\-~!@#\$%\^\&\*\(\)_\+<>\?:"\{\},\.\\\/;'\[\]]/g, "_");
             var random = ""; //Math.floor(Math.random() * 1000);
             // var ctl = dir + "$" + name.replace(/-/g, '_');
             // lines.push(dir + name + ctl);
             lines.push("//   " + dir + "/" + name);
-            lines.push("import " + impname + "_" + random + " from './" + dir + "/" + name + "';");
+            lines.push("import " + impname + " from './" + dir + "/" + name + "';");
             var cname = dir == name ? name : dir + "/" + name;
-            lines.push("modularList.push({ name: '" + cname + "', url: '" + dir + "/" + name + "', val:" + impname + "_" + random + " });");
+            cname = cname.replace(/[`\-]/g, "/");
+            lines.push("modularList.push({ name: '" + cname + "', url: '" + dir + "/" + name + "', val:" + impname + " });");
         });
     });
     lines.push("export { modularList };");

@@ -37,6 +37,7 @@ export  default class  implements ng.IHttpInterceptor {
             //console.log("201");
             // console.log(response1);
         }
+        console.log("response1",response1);
         return response1;
     };
     responseError(response1: ng.IHttpPromiseCallbackArg<any>) {

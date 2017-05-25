@@ -3,197 +3,296 @@
  * 编辑器 http://www.wangeditor.com/index.html
  */
 import { serHelper, serBusiness } from '../../service';
+import * as emotions from '../../baseClass/emotions.json';
+import * as GlobalConfig from '../../config';
 
 
 export default class directive implements ng.IDirective {
     static $instance = ["serHelper", (serHelper): ng.IDirective => {
+
         return new directive(serHelper);
     }];
     constructor(
         private serHelper: serHelper
     ) {
         // window["UEDITOR_CONFIG"]["UEDITOR_HOME_URL"] = "demo/upload";
-        // this.Qiniu.config.filters = {
-        //     mime_types: [
-        //         //只允许上传图片文件 （注意，extensions中，逗号后面不要加空格）
-        //         { title: "图片文件", extensions: "jpg,gif,png,bmp" }
-        //     ]
-        // };
-        // this.Qiniu.config.auto_start = true;
-        // this.Qiniu.config.max_file_size = "100mb";
-        // this.Qiniu.config["dragdrop"] = true;                   //开启可拖曳上传
-        // this.Qiniu.config["drop_element"] = 'editor-container';  //拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
+        this.Qiniu.config.filters = {
+            mime_types: [
+                //只允许上传图片文件 （注意，extensions中，逗号后面不要加空格）
+                { title: "图片文件", extensions: "jpg,gif,png,bmp" }
+            ]
+        };
+        this.Qiniu.config.auto_start = true;
+        this.Qiniu.config.max_file_size = "100mb";
+        this.Qiniu.config["dragdrop"] = true;                   //开启可拖曳上传
+        this.Qiniu.config["drop_element"] = 'editor-container';  //拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
+        // this.createMenu();
     }
-    // Qiniu = this.serHelper.serQiniu.Create();
-    scope = {};
+    // 获取 wangEditor 对象
+    wangEditor: any = window["wangEditor"];
+    Qiniu = this.serHelper.serQiniu.Create();
+    scope = false;
     restrict = 'AE';
-    require = "ngModel";
+    require = "?ngModel";
     replace = true;
     template = `
     <div>
      <div data-wangEditor style="height:400px"></div>
     </div>
     `;
+    editor;
+    element;
     link(scope: any, element: ng.IRootElementService, attrs: any, ctrl: any) {
-
+        this.element = element;
         // 创建编辑器
-        window["wangEditor"].numberOfLocation = 0;
-        window["wangEditor"].config.printLog = false;
-        var editor = new window["wangEditor"](element.find("div[data-wangEditor]")[0]);
-        editor.config.printLog = false;
-        editor.config.menuFixed = false;
-        editor.config.customUpload = true;  // 设置自定义上传的开关
-        editor.config.customUploadInit = () => {
-            // 触发选择文件的按钮的id
-            // this.Qiniu.config.browse_button = editor.customUploadBtnId;
-            // // 触发选择文件的按钮的父容器的id
-            // this.Qiniu.config["container"] = editor.customUploadContainerId;
-            // this.Qiniu.config.init.UploadProgress = (up, file) => {
-            //     // 显示进度条
-            //     editor.showUploadProgress(file.percent);
-            // };
-            // this.Qiniu.config.init.UploadComplete = () => {
-            //     editor.hideUploadProgress();
-            // };
-            // this.Qiniu.config.init.FileUploaded = (up, file, info) => {
-            //     var sourceLink = `http://olt0mifi5.bkt.clouddn.com/${file.target_name}?imageView2/2/w/100/q/100/format/png`;
-            //     // 插入图片到editor
-            //     editor.command(null, 'insertHtml', '<img src="' + sourceLink + '" style="max-width:100%;"/>')
-            // };
-            // var uploader = this.Qiniu.UploadInit();
-        };  // 配置自定义上传初始化事件，uploadInit方法在上面定义了  
-        editor.config.emotions = {
-            'default': {
-                title: '默认',
-                data: '../assets/emotions.data'
-            },
-        };
-        editor.onchange = function () {
-            // 从 onchange 函数中更新数据
-            scope.$apply(function () {
-                var html = editor.$txt.html();
-                ctrl.$setViewValue(html);
+        this.wangEditor.numberOfLocation = 0;
+        this.wangEditor.config.printLog = false;
+        setTimeout(() => {
+            var editor;
+            this.editor = editor = new this.wangEditor(element.find("div[data-wangEditor]")[0]);
+            // 处理功能菜单
+            if (editor.config.menus.indexOf("uploader") == -1) {
+                editor.config.menus.splice(29, 0, "uploader");
+            }
+            if (attrs.menus && attrs.menus.length > 0) {
+                let menus = [];
+                attrs.menus.split(',').forEach(x => {
+                    menus.push(x);
+                });
+                // menus.push("|");
+                editor.config.menus = menus;
+            }
+            editor.config.printLog = false;
+            editor.config.menuFixed = false;
+            if (editor.config.menus.indexOf("img") != -1) {
+                editor.config.customUpload = true;  // 设置自定义上传的开关
+                editor.config.customUploadInit = () => {
+                    // 触发选择文件的按钮的id
+                    this.Qiniu.config.browse_button = editor.customUploadBtnId;
+                    // 触发选择文件的按钮的父容器的id
+                    this.Qiniu.config["container"] = editor.customUploadContainerId;
+                    this.Qiniu.config.init.UploadProgress = (up, file) => {
+                        // 显示进度条
+                        editor.showUploadProgress(file.percent);
+                    };
+                    this.Qiniu.config.init.UploadComplete = () => {
+                        editor.hideUploadProgress();
+                    };
+                    this.Qiniu.config.init.FileUploaded = (up, file, info) => {
+                        var sourceLink = `${GlobalConfig.qiniuConfig.images + file.target_name}`;
+                        // 插入图片到editor
+                        // editor.command(null, 'insertHtml', '<img src="' + sourceLink + '" style="max-width:100%;"/>');
+                        // editor.$txt.html('<p>要初始化的内容</p>');
+                        editor.$txt.append('<img src="' + sourceLink + '" style="max-width:100%;"/>');
+                        editor.onchange();
+                    };
+                    var uploader = this.Qiniu.UploadInit();
+
+                };  // 配置自定义上传初始化事件，uploadInit方法在上面定义了  
+            }
+
+            editor.config.emotions = {
+                'default': {
+                    title: '默认',
+                    data: emotions
+                },
+                // 'xinlang': {
+                //     title: '新浪',
+                //     data: 'assets/json/emotions-xl.json'
+                // },
+            };
+            // 源码已经改写 这个事件 选择表情 在 Edge浏览器中不执行 
+            editor.onchange = function () {
+                // console.log("editor.$txt.html", editor.$txt.html());
+                // 从 onchange 函数中更新数据
+                scope.$apply(function () {
+                    var html = editor.$txt.html();
+                    ctrl.$setViewValue(html);
+                });
+            };
+            editor.create();
+            // console.log("editor", editor, attrs);
+            this.updateEditor();
+            //清除节点
+            scope.$on("$destroy", function () {
+                editor.destroy();
+            })
+            // console.log("console", ctrl.$modelValue);
+            if (ctrl.$modelValue && ctrl.$modelValue.length > 0) {
+                // editor.command(null, 'insertHtml', ctrl.$modelValue);
+                editor.$txt.html(ctrl.$modelValue);
+            } else {
+                var unregister = scope.$watch(function () {
+                    return ctrl ? ctrl.$modelValue : undefined;
+                }, function (value) {
+                    // editor.$txt.append(value);
+                    // console.log("unregister", value);
+                    // editor.command(null, 'insertHtml', value);
+                    editor.$txt.html(value);
+
+                    unregister();
+                });
+
+            };
+            // 清空
+            scope.$watch(() => {
+                return ctrl ? ctrl.$modelValue : undefined;
+            }, (x, y) => {
+                if (x != null && x.length < 1) {
+                    editor.$txt.html('<p><br></p>');
+                } else {
+                }
             });
-        };
-        editor.create();
+        });
+
+    };
+    updateEditor() {
+        // 重新计算编辑器大小
+        let wangEditor = this.editor.$editorContainer.find("div.wangEditor-menu-container");
+        let height = wangEditor.height();
+        this.editor.$txt.attr("style", "height:" + (this.element.height() - height - 9) + "px");
+        $(window).on("resize", x => {
+            // console.log("size", wangEditor.height());
+            if (height != wangEditor.height()) {
+                height = wangEditor.height();
+                this.editor.$txt.attr("style", "height:" + (this.element.height() - height - 9) + "px");
+            }
+        });
+        // console.log("编辑器", editor);
         /**
          * 控件生成后里面的a标签默认带有href='#' 这会影响 ng路由，所以需要对这些标签进行处理
          */
         // console.log("--------------",editor.$editorContainer.find("a[href='#']"));
-        editor.$editorContainer.find("a[href='#']").each(function (i, e) {
+        this.editor.$editorContainer.find("a[href='#']").each(function (i, e) {
             $(e).attr("href", "javascript:void(0);");
         })
-        //清除节点
-        scope.$on("$destroy", function () {
-            editor.destroy();
-        })
-
-        // 初始化七牛上传
-        // function uploadInit() {
-        //     // this 即 editor 对象
-        //     var editor = this;
-        //     console.log("editor", editor);
-        //     // 触发选择文件的按钮的id
-        //     var btnId = editor.customUploadBtnId;
-        //     // 触发选择文件的按钮的父容器的id
-        //     var containerId = editor.customUploadContainerId;
-
-        //     // 创建上传对象
-        // var uploader = Qiniu.uploader({
-        //     runtimes: 'html5,flash,html4',    //上传模式,依次退化
-        //     browse_button: btnId,       //上传选择的点选按钮，**必需**
-        //     uptoken_url: '/qiniu/UpToken',
-        //     //Ajax请求upToken的Url，**强烈建议设置**（服务端提供）
-        //     // uptoken : '<Your upload token>',
-        //     //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
-        //     // unique_names: true,
-        //     // 默认 false，key为文件名。若开启该选项，SDK会为每个文件自动生成key（文件名）
-        //     // save_key: true,
-        //     // 默认 false。若在服务端生成uptoken的上传策略中指定了 `sava_key`，则开启，SDK在前端将不对key进行任何处理
-        //     domain: 'http://olt0mifi5.bkt.clouddn.com',
-        //     //bucket 域名，下载资源时用到，**必需**
-        //     // container: containerId,           //上传区域DOM ID，默认是browser_button的父元素，
-        //     max_file_size: '100mb',           //最大文件体积限制
-        //     // flash_swf_url: '../js/plupload/Moxie.swf',  //引入flash,相对路径
-        //     filters: {
-        //         mime_types: [
-        //             //只允许上传图片文件 （注意，extensions中，逗号后面不要加空格）
-        //             { title: "图片文件", extensions: "jpg,gif,png,bmp" }
-        //         ]
-        //     },
-        //     get_new_uptoken: false,
-        //     unique_names: true,
-        //     // log_level: 5,
-        //     max_retries: 3,                   //上传失败最大重试次数
-        //     dragdrop: true,                   //开启可拖曳上传
-        //     drop_element: 'editor-container',        //拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
-        //     chunk_size: '4mb',                //分块上传时，每片的体积
-        //     auto_start: true,                 //选择文件后自动上传，若关闭需要自己绑定事件触发上传
-        //     init: {
-        //         'FilesAdded': function (up, files) {
-        //             console.log('on FilesAdded', up, files);
-        //             // plupload.each(files, function (file) {
-        //             //     // 文件添加进队列后,处理相关的事情
-        //             //     console.log('on FilesAdded');
-        //             // });
-        //         },
-        //         'BeforeUpload': function (up, file) {
-        //             // 每个文件上传前,处理相关的事情
-        //             console.log('on BeforeUpload');
-        //         },
-        //         'UploadProgress': function (up, file) {
-        //             // 显示进度条
-        //             editor.showUploadProgress(file.percent);
-        //         },
-        //         'FileUploaded': function (up, file, info) {
-        //             // 每个文件上传成功后,处理相关的事情
-        //             // 其中 info 是文件上传成功后，服务端返回的json，形式如
-        //             // {
-        //             //    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
-        //             //    "key": "gogopher.jpg"
-        //             //  }
-        //             console.info('qiniu FileUploaded', file, info);
-        //             // 参考http://developer.qiniu.com/docs/v6/api/overview/up/response/simple-response.html
-
-        //             // var domain = up.getOption('domain');
-        //             // var res = $.parseJSON(info);
-        //             // var sourceLink = domain + res.key; //获取上传成功后的文件的Url
-        //             var sourceLink = `http://olt0mifi5.bkt.clouddn.com/${file.target_name}?imageView2/2/w/100/q/100/format/png`;
-        //             console.log(sourceLink);
-
-        //             // 插入图片到editor
-        //             editor.command(null, 'insertHtml', '<img src="' + sourceLink + '" style="max-width:100%;"/>')
-        //         },
-        //         'Error': function (up, err, errTip) {
-        //             //上传出错时,处理相关的事情
-        //             console.log('on Error');
-        //         },
-        //         'UploadComplete': function () {
-        //             //队列文件处理完毕后,处理相关的事情
-        //             console.log('on UploadComplete');
-
-        //             // 隐藏进度条
-        //             editor.hideUploadProgress();
-        //         }
-        //         // Key 函数如果有需要自行配置，无特殊需要请注释
-        //         //,
-        //         // 'Key': function(up, file) {
-        //         //     // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
-        //         //     // 该配置必须要在 unique_names: false , save_key: false 时才生效
-        //         //     var key = "";
-        //         //     // do something with key here
-        //         //     return key
-        //         // }
-        //     }
-        //     });
-        // domain 为七牛空间（bucket)对应的域名，选择某个空间后，可通过"空间设置->基本设置->域名设置"查看获取
-        // uploader 为一个plupload对象，继承了所有plupload的方法，参考http://plupload.com/docs
-        // }
-    };
+    }
 
 }
 class Controller {
-    constructor() {
+    constructor() { this.createMenu(); }
+    wangEditor: any = window["wangEditor"];
+    uploader;
+    editor: any = {};
+    createMenu() {
+        // 用 createMenu 方法创建菜单
+        let E = this.wangEditor;
+        // panel 内容
 
+        //初始化上传控件 
+        // let uploaderInit = ($container) => {
+        //     this.uploaderInit(red_id, $container);
+        // };
+        let _this_ = this;
+        E.createMenu(function (check) {
+            let red_id = "uploader" + Math.ceil(Math.random() * 1000000);
+            // console.log(this);
+            // 定义菜单id，不要和其他菜单id重复。编辑器自带的所有菜单id，可通过『参数配置-自定义菜单』一节查看
+            var menuId = 'uploader';
+            // debugger
+            // check将检查菜单配置（『参数配置-自定义菜单』一节描述）中是否该菜单id，如果没有，则忽略下面的代码。
+            if (!check(menuId)) {
+                return;
+            }
+
+            // this 指向 editor 对象自身
+            var editor = _this_.editor = this;
+            // 创建 menu 对象
+            var menu = new E.Menu({
+                editor: editor,  // 编辑器对象
+                id: menuId,  // 菜单id
+                title: '上传文件', // 菜单标题
+
+                // 正常状态和选中状态下的dom对象，样式需要自定义
+                $domNormal: $('<a href="#" tabindex="-1"><i class="fa fa-upload"></i></a>'),
+                $domSelected: $('<a href="#" tabindex="-1"><i class="fa fa-upload"></i></a>')
+            });
+            // console.log("菜单按钮", menu);
+            var $container = $(`
+             <div>
+                <button id="${red_id}" type="button" class="btn btn-block"><i class="wangeditor-menu-img-upload"></i></button>
+             </div>
+            `);
+
+            // 添加panel
+            menu.dropPanel = new E.DropPanel(editor, menu, {
+                $content: $container,
+                width: 350,
+                onRender: function () {
+                    // uploaderInit($container);
+                    _this_.uploaderInit(red_id, $container, editor);
+                }
+            });
+            // 增加到editor对象中
+            editor.menus[menuId] = menu;
+        });
+    }
+    // 初始化上传控件
+    uploaderInit(red_id, $container: JQuery, editor) {
+        // console.log("red_id", red_id);
+        let tpl = `<a href="javascript:void(0)" class="list-group-item">[100%] </a>`;
+        let progress = $(`
+        <div class="progress">
+        </div>
+        `);
+        let bar = $(`
+        <div  class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;line-height: 20px;">
+            0%
+        </div>
+        `);
+        progress.append(bar);
+        $($container).append(progress);
+        let filesSize = 0;
+        let filesLoaded = 0;
+        this.uploader = new plupload.Uploader({
+            browse_button: red_id,
+            url: GlobalConfig.uploaderUrl,
+            // headers: { 'sso-token': this.$cookies.get('sso-token') },
+        });
+        this.uploader.bind('FilesAdded', (up, files) => {
+            // console.info('plupload FilesAdded', files);
+            list_group = ` <div class="list-group editor-uploader-list">`;
+            bar[0].style.width = "0%";
+            bar.text("0%");
+            $.each(files, (i, x) => {
+                filesSize += x.size;
+            });
+            setTimeout(() => {
+                this.uploader.start();
+            }, 500);
+        });
+        let list_group = ` <div class="list-group editor-uploader-list">`;
+        //单个文件上传成功
+        this.uploader.bind("FileUploaded", (up, file, res) => {
+
+            filesLoaded += file.loaded;
+            res = JSON.parse(res.response);
+            // console.log("FileUploaded", file);
+            list_group += ` <a class="list-group-item editor-uploader-item"  target="_blank" href="${res.data.url}"><i class="fa fa-download"></i> <span>${file.name}</span> </a>`;
+
+        });
+        // 上传过程不断触发
+        this.uploader.bind('UploadProgress', (up, file) => {
+            // console.info('plupload UploadProgress', Math.ceil((filesLoaded + file.loaded) / filesSize * 100.0));
+            let load = Math.ceil((filesLoaded + file.loaded) / filesSize * 100.0);
+            bar[0].style.width = load - 1 + "%";
+            bar.text(load - 1 + "%");
+        });
+        // 全部上传成功
+        this.uploader.bind('UploadComplete', (up, files, r) => {
+            // console.info('plupload UploadComplete', up);
+            up.files = [];
+            bar[0].style.width = "100%";
+            bar.text("100%");
+            list_group += " </div>";
+            editor.$txt.append(list_group);
+            editor.onchange();
+        });
+        this.uploader.init();
+        function FilesAdded(files) {
+
+        }
     }
 }
+// 扩展上传插件
+new Controller();

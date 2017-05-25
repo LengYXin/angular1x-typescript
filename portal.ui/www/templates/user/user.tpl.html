@@ -1,0 +1,25 @@
+<style>
+    td{
+        padding:10px;
+    }
+    
+    
+    .dialog-padding-top3pre{
+        padding-top: 3%!important;
+        z-index: 9999;
+    }
+</style>
+<div sam-open-transition>
+    <!-- Nav tabs -->
+    <div  class="main-menu-tabs"> 
+    <ul class="nav nav-tabs" role="tablist">
+        <li ui-sref-active="active"><a ui-sref="user.myinfo">我的信息</a></li>
+        <li ui-sref-active="active"><a ui-sref="user.mysalary">我的薪资</a></li>
+        <!--<li ui-sref-active="active"><a ui-sref="user.mypush">我的内推</a></li>-->
+        <li ui-sref-active="active"><a ui-sref="user.myapply">我的申请</a></li>
+        <li ui-sref-active="active"><a ui-sref="user.myhandle">我的待办</a></li>
+        <!--<li ui-sref-active="active"><a ui-sref="applydetails({id:234})">test</a></li>-->
+    </ul>
+    </div>
+    <div ui-view=""></div>
+</div>

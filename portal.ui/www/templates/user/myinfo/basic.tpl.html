@@ -1,0 +1,68 @@
+<div class="myinfo-con pt30 ">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="c39">性别：</span>
+            <span ng-bind="svm.myInfo.myinfo.sex=='M'?'男':'女'"></span>
+        </div>
+        <div class="col-lg-3 col-md-2 col-sm-3">
+            <span class="c39">最高学历：</span>
+            <span ng-bind="svm.myInfo.myinfo.highest_edu_lvl_descr"></span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="c39">籍贯：</span>
+            <span ng-bind="svm.myInfo.myinfo.native_place_chn"></span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="c39">民族：</span>
+            <span ng-bind="svm.myInfo.myinfo.yx_ehtnic_descr"></span>
+        </div>
+        
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="c39">生日：</span>
+            <span ng-bind="svm.myInfo.myinfo.birth_dt"></span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="c39">政治面貌：</span>
+            <span ng-bind="svm.myInfo.myinfo.yx_political_sta_descr"></span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="c39">婚姻状况：</span>
+            <span ng-bind="svm.myInfo.myinfo.yx_mar_status"></span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="c39">首次参加工作时间：</span>
+            <span ng-bind="svm.myInfo.myinfo.firstwork_dt"></span>
+        </div>
+    </div>
+    <div class="row">
+        
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="c39">户口类型：</span>
+            <span ng-bind="svm.myInfo.myinfo.yx_hukou_type_descr"></span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="c39">户口所在地：</span>
+            <span ng-bind="svm.myInfo.myinfo.yx_contrib_area_descr"></span>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <span class="c39">银行卡号：</span>
+            <span ng-bind="svm.myInfo.myinfo.account_ec_id"></span>
+            <span><button ng-click="svm.showEditBankAccount(svm.myInfo.myinfo.account_ec_id)" class="btn-edit"><span class="icon-edit"></span></button></span>
+
+        </div>
+        
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <span >紧急联系人</span><span><button ng-click="svm.showChangeContact(svm.myInfo.myinfo.contact_name,svm.myInfo.myinfo.contact_phone)" class="btn-edit"><span class="icon-edit"></span></button></span>
+        </div>
+         <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="c39">姓名：</span><span ng-bind="svm.myInfo.myinfo.contact_name"></span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="c39">电话：</span><span ng-bind="svm.myInfo.myinfo.contact_phone"></span>
+        </div>
+    </div>
+</div>

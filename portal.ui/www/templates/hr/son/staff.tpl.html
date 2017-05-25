@@ -1,0 +1,41 @@
+<sam-Panel>
+    <div class="panel-heading mb5 mt25 ml35">
+        <div class="define_search po-re">
+            <input type="text" class="form-control" placeholder="请输入团队成员姓名" ng-model="svm.search" ng-change="svm.searchChange(svm.search)">
+            <button type="button" class="po-ab"><span class="icon-search"></span></button>
+        </div>
+    </div>
+    <div class="panel-body define_team">
+        <h4 class="pb20 mb0">团队成员</h4>
+        <div class="list-group mg-member-list define_team-content">
+            <div class="list-group-item HR_define" ng-repeat="t in svm.TeamMember">
+                <div class="mg-member-item">
+                    <img ng-src="{{t.avatar | img:'avatar'}}" class="img-circle">
+                    <h3 class="mg-member-item-name"><span ng-bind="t.name_display"></span>&nbsp;</h3>
+                    <!--<p class="mg-member-item-position HR_team">
+                        <span ng-bind="t.deptlongname"></span> - 
+                        <span ng-bind="t.jobcode_desc"></span>
+                        <span ng-bind="t.empl_class" ng-if="t.empl_class=='全职'" class="position_information Btn-full-time"></span>
+                        <span ng-bind="t.empl_class" ng-if="t.empl_class=='实习'" class="position_information Btn-internship"></span>
+                        <span ng-bind="t.empl_class" ng-if="t.empl_class!='全职' && t.empl_class!='实习'" class="position_information Btn-trial"></span>
+                        <span class="HR_superior">直接上级：<span ng-bind="t.supervisor_name"></span></span> 
+                    </p>-->
+                     <span class="col-lg-8 col-md-8 col-sm-8 HR_team">
+                        <span ng-bind="t.deptlongname"></span> - 
+                        <span ng-bind="t.jobcode_desc"></span>
+                        <span ng-bind="t.empl_class" ng-if="t.empl_class=='全职'" class="position_information Btn-full-time"></span>
+                        <span ng-bind="t.empl_class" ng-if="t.empl_class=='实习'" class="position_information Btn-internship"></span>
+                        <span ng-bind="t.empl_class" ng-if="t.empl_class!='全职' && t.empl_class!='实习'" class="position_information Btn-trial"></span>
+                        
+                    </span>
+                    <span class="col-lg-4 col-md-4 col-sm-4 HR_team c39">直接上级：<span ng-bind="t.supervisor_name"></span></span> 
+                    <p class="mg-member-item-contact">
+                        <span>邮箱：<span ng-bind="t.email_addr"></span></span>
+                        <span>电话：<span ng-bind="t.mobile"></span></span>
+                        <span>工号：<span ng-bind="t.emplid"></span></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</sam-Panel>

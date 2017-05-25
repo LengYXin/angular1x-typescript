@@ -1,29 +1,41 @@
 import './css';                     //自定义css模块
+// import './baseClass/calendar.js';  //日历
 import * as GlobalConfig from './config';             //全局配置
 import { modularList as controllers } from './controllers/modular';
 import { modularList as directives } from './directives/modular';
 import { modularList as filters } from './filters/modular';
 import { modularList as services } from './services/modular';
 import route from "./route";           //各个业务模块的控制器和配合项
+import monitor from "./monitor";       //监控
 /**
  * ng 启动文件
  */
 export default class {
-    starter: ng.IModule
+    //angular 模块
+    starter: ng.IModule;
+    //权限
+    $menuPermissions: any[];
+    //页面路径
+    pathname: any;
     /**
-     * 启动
+     * 构造函数
      * @param requires 附加导入模块
      */
     constructor(requires?: string[]) {
+        let pathname = window.location.pathname;
+        this.pathname = pathname.substr(pathname.lastIndexOf('/'), pathname.length);
         //默认导入模块
         let requiresStarter = [
             'ui.router',
+            'ngImgCrop',
             'ngAnimate',
             'chieffancypants.loadingBar',
             'toastr',
             'ngDialog',
             'ngCookies',
             'ngFileUpload',
+            'ngSanitize',
+            "angucomplete-alt",
         ];
         if (requires) {
             requires.forEach(x => {
@@ -31,12 +43,54 @@ export default class {
             });
         }
         this.starter = angular.module('starter', requiresStarter);
+
+        this.start();
+
+    }
+    //初始化 
+    start() {
+        if (this.pathname == "/login.html") {
+            //注册一个 空的 权限服务 为了防止 控制器调用报错  
+            services.push({
+                name: "$menuPermissions", val:
+                class {
+                    list = [];
+                }
+            });
+            this.bootstrap();
+        } else {
+            //获取到 菜单 后启动 程序
+            jQuery.ajax("assets/json/menus.json", {
+                success: x => {
+                    this.$menuPermissions = x;
+                    //注册一个 权限服务
+                    services.push({
+                        name: "$menuPermissions", val:
+                        class {
+                            list = x;
+                        }
+                    });
+                    this.bootstrap(this.$menuPermissions);
+                },
+                error: x => {
+                    // this.bootstrap();
+                    console.error(x);
+                }
+            })
+        }
+    }
+    //启动程序入口
+    bootstrap($menuPermissions?) {
         this.injectServices();
         this.injectFilters();
         this.injectDirective();
         this.injectController();
-        this.starter.run(['$rootScope', function ($rootScope) {
-
+        this.starter.run(['$rootScope', '$menuPermissions', 'serUserContext', ($rootScope, $menuPermissions, serUserContext) => {
+            new monitor($rootScope);
+            if (this.pathname == "/login.html") {
+            } else {
+                serUserContext.GetUserContext();
+            };
         }]);
 
         this.starter.config([
@@ -55,7 +109,7 @@ export default class {
                 // $translateProvider
             ) {
                 //$http拦截注入
-                $httpProvider.interceptors.push('serHttpInterceptor');
+                // $httpProvider.interceptors.push('serHttpInterceptor');
                 //提示框
                 // angular.extend(toastrConfig, {
                 //     allowHtml: true,
@@ -79,13 +133,12 @@ export default class {
                 //     toastClass: 'toast',
                 //     positionClass: 'toast-top-full-width'
                 // });
-                new route($stateProvider, $urlRouterProvider);
+                new route($stateProvider, $urlRouterProvider, $menuPermissions);
             }
         ]);
-
-        //启动 
         angular.bootstrap(document, ['starter']);
     }
+
     /**
      * 注入控制器
      */
@@ -112,7 +165,7 @@ export default class {
             this.starter.directive(x.name, x.val);
             clgtate[x.name] = x;
         });
-        GlobalConfig.debug ? console.debug("directive 成功", clgtate) : undefined;
+        GlobalConfig.debug ? console.debug(" directive 成功", clgtate) : undefined;
 
     }
     /**

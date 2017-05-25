@@ -1,0 +1,43 @@
+<sam-Panel>
+
+    <!-- Nav tabs -->
+    <div class="main-menu-tabs">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="active"><a href="#isReadyd" aria-controls="isReadyd" data-toggle="tab">未读</a></li>
+            <li><a href="#isReadwd" aria-controls="isReadwd" data-toggle="tab">已读</a></li>
+        </ul>
+    </div>
+    <!-- Tab panes -->
+    <div class="tab-content message-list">
+        <div class="tab-pane active" id="isReadyd">
+            <div class="ml25 mr25">
+
+                <table class="table table-hover mt10">
+                    <tbody>
+                        <tr ng-repeat="t in vm.pagingConfig1.item" ng-click="vm.goMessage(t)" href="javascript:void(0)">
+                            <td ng-bind="t.displayText" class="text-left"></td>
+                            <td ng-bind="t.createDate | dateFormat :'yyyy / MM / dd HH:mm:ss'" class="text-right c3c"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <sam-Pagingsx ng-hide="vm.pagingConfig1.params.pageIndex==1&&vm.pagingConfig1.item.length<10||!vm.pagingConfig1.item" paging-Config="vm.pagingConfig1"></sam-Pagingsx>
+            </div>
+
+        </div>
+        <div class="tab-pane" id="isReadwd">
+            <div class="ml25 mr25">
+
+                <table class="table table-hover mt10">
+                    <tbody>
+                        <tr ng-repeat="t in vm.pagingConfig2.item" ng-click="vm.goMessage(t)" href="javascript:void(0)">
+                            <td ng-bind="t.displayText" class="text-left"></td>
+                            <td ng-bind="t.createDate | dateFormat :'yyyy / MM / dd HH:mm:ss'"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <sam-Pagingsx ng-hide="vm.pagingConfig2.params.pageIndex==1&&vm.pagingConfig2.item.length<10||!vm.pagingConfig2.item" paging-Config="vm.pagingConfig2"></sam-Pagingsx>
+            </div>
+
+        </div>
+    </div>
+</sam-Panel>

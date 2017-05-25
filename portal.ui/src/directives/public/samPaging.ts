@@ -12,9 +12,11 @@ export default class directive implements ng.IDirective {
     }
     restrict = 'AE';
     // transclude = true;
-    scope = false;
+    scope = {
+        pagingConfig: "="
+    };
     replace = true;
-    // controller = Controller;
+    controller = Controller;
     // controllerAs = "Paging";
     templateUrl = 'directives/public/samPaging.tpl.html';
     link(
@@ -22,12 +24,12 @@ export default class directive implements ng.IDirective {
         element: ng.IRootElementService,
         attrs: ng.IAttributes
     ) {
-        scope["Paging"] = new Controller(scope, element);
+        // scope["Paging"] = new Controller(scope, element);
     }
 }
 class Controller {
     //输出页码
-    PageNumber: number[] = [];
+    PageNumber: number[] = [1, 2, 3, 4, 5];
     PageNum: number;
     //数据量
     Count: number;
@@ -39,19 +41,20 @@ class Controller {
     //当前页码
     currentPage: number = 1;
     constructor(
-        private $scope: { vm: yxInterface.IPaging },
+        private $scope: ng.IScope,
         private $element: ng.IRootElementService,
     ) {
-        this.currentPage = this.$scope.vm.PagingConfig.params.page_index;
-        this.PageNum = this.$scope.vm.PagingConfig.pageCount;
-        this.Count = this.$scope.vm.PagingConfig.count;
-        // console.debug("分页", $scope.vm.loadDataConfig.pageCount);
-        let pageCount = $scope.vm.PagingConfig.pageCount;
-        let page = 1;
-        while (page <= pageCount) {
-            this.PageNumber.push(page);
-            page++
-        }
+        console.log(this);
+        // this.currentPage = this.$scope.vm.PagingConfig.params.page_index;
+        // this.PageNum = this.$scope.vm.PagingConfig.pageCount;
+        // this.Count = this.$scope.vm.PagingConfig.count;
+        // // console.debug("分页", $scope.vm.loadDataConfig.pageCount);
+        // let pageCount = $scope.vm.PagingConfig.pageCount;
+        // let page = 1;
+        // while (page <= pageCount) {
+        //     this.PageNumber.push(page);
+        //     page++
+        // }
         this.Page();
     }
     //计算显示的页码

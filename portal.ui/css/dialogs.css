@@ -1,0 +1,82 @@
+.ngdialog.ngdialog-theme-default .ngdialog-content{
+    background: #fff;
+    padding: 0px;
+    font-family: Arial, "微软雅黑", "Microsoft YaHei"
+}
+.ngdialog-content .panel .panel-heading {
+    background: #f7f7f7; 
+    border-bottom:1px solid #e7e7e7;
+    height: 44px;
+    line-height: 44px;
+    position: relative;
+}
+
+.ngdialog-content .panel .panel-heading .panel-title {
+    height: 23px;
+    line-height: 23px;
+    font-size: 14px;
+    color: #666;
+}
+
+.ngdialog-content .panel .panel-body{
+    padding: 0px 10px;
+}
+
+.dialog-footer{
+    height: 60px;
+    padding-top: 13px; 
+    border-top:1px solid #f7f7f7;
+}
+
+
+.define_Dialogs-Pad{
+   padding:24px 45px 23px;
+   /*padding:14px 35px 13px;*/
+   
+}
+
+.define_Dialogs-Pad label{
+    font-weight: normal;
+    color: #666;
+    font-size: 14px;
+    padding-bottom: 5px;
+}
+
+.define_Dialogs-Pad textarea{
+    height: 152px;
+    border-color: #dcdcdc;
+    resize: none;
+    border-radius: 3px;
+    box-shadow: none;
+}
+
+.define_Dialogs-Btn{
+    margin-bottom: 47px !important;
+
+}
+
+.define_Dialogs-Btn .text-center button:first-child{
+    width: 85px;
+    height: 28px;
+    color: #e9666c;
+    border-color: #e9666c;
+    background-color: #fff;
+    line-height: 0px;
+}
+
+.define_Dialogs-Btn .text-center button:last-child{
+    width: 85px;
+    height: 28px;
+    color: #999;
+    border-color: #cbcbcb;
+    background-color: #fff;
+    line-height: 0px;
+    margin-left: 31px;
+}
+
+/*修改头像*/
+.upload_userlogo{width: 280px;height: 280px;background:#f6f8f9;  overflow: hidden;}
+.edit_userlogo_con{padding: 30px 60px;height: 400px}
+
+.userlogo-list{text-align: center;padding-left: 40px;}
+.userlogo-list p{font-size: 12px;}

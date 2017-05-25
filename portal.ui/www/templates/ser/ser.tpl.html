@@ -1,0 +1,95 @@
+<div sam-open-transition>
+    <sam-Swiper-Carouselfigure  swiperconfig="vm.swiperConfig "></sam-Swiper-Carouselfigure>
+    <hr>
+    <div class="row text-center selfservice-link">
+        <div class="col-lg-3 col-md-4 col-sm-4" ng-repeat="menu in vm.menus|orderBy:'sortid'">
+            <a class="thumbnail " target="{{menu.link.indexOf('http:')==-1?'_self':'_blank'}}" ng-href="{{menu.link}}" ng-if="menu.link.indexOf('.html')!=-1">
+                <img ng-src="{{menu.imgurl | img}}?imageView2/2/w/80/q/80/format/png" style="height: 76px;width:76px;">
+                <div class="caption">
+                    <h3 ng-bind="menu.title"></h3>
+                </div>
+            </a>
+            <div class="thumbnail " ui-sref="{{menu.link}}" ng-if="menu.link.indexOf('.html')==-1">
+                <img ng-src="{{menu.imgurl | img}}?imageView2/2/w/80/q/80/format/png" style="height: 76px;width:76px;">
+                <div class="caption">
+                    <h3 ng-bind="menu.title"></h3>
+                </div>
+            </div>
+        </div>
+        <!--<div class="col-lg-3 col-md-12 col-sm-12">
+            <a class="thumbnail " target="_blank" href="https://www.baidu.com/">
+                <img src="/assets/img/user-edit.png" width="76" height="76">
+                <div class="caption">
+                    <h3>修改个人信息</h3>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12">
+            <div class="thumbnail " ui-sref="ser/prove">
+                <img src="/assets/img/zjzm.png" width="76" height="76">
+                <div class="caption">
+                    <h3>办理证明</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12">
+            <div class="thumbnail " ui-sref="ser/seal">
+                <img src="/assets/img/gzsy.png" width="76" height="76">
+
+                <div class="caption">
+                    <h3>公章使用</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12">
+            <div class="thumbnail " ui-sref="ser/inside">
+                <img src="/assets/img/nbtj.png" width="76" height="76">
+
+                <div class="caption">
+                    <h3>内部推荐</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12">
+
+            <div class="thumbnail " ui-sref="ser/live">
+                <img src="/assets/img/bljzz.png" width="76" height="76">
+
+                <div class="caption">
+                    <h3>办理居住证</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12">
+
+
+            <div class="thumbnail " ui-sref="ser/ssf">
+                <img src="/assets/img/qxyj.png" width="76" height="76">
+
+                <div class="caption">
+                    <h3>社保公积金业务办理</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12">
+
+            <div class="thumbnail " ui-sref="ser/quit">
+                <img src="/assets/img/lzsq.png" width="76" height="76">
+
+                <div class="caption">
+                    <h3>离职申请</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12">
+
+            <div class="thumbnail " ui-sref="ser/welfare">
+                <img src="/assets/img/flmxgc.png" width="76" height="76">
+
+                <div class="caption">
+                    <h3>福利免息购车</h3>
+                </div>
+            </div>
+        </div>
+    </div>-->
+    </div>

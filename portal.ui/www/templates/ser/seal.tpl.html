@@ -1,0 +1,65 @@
+<div sam-open-transition>
+    <div class="menu-line mb10">
+        <span class="c39">首页 > </span><span class="c39">自助服务 > </span> <span>公章使用</span>
+        <a href="javascript:window.history.go(-1)" class="pull-right more">返回 <span class="icon-arr-right"></span></a></div>
+    <div class="seal-con">
+        <h1 class="text-center">公章使用</h1>
+        <form name="vm.Form" novalidate ng-submit="vm.submit(vm.Form)" class="form-horizontal">
+            <div class="form-group">
+                <label class="col-lg-3 col-md-3 col-sm-3 control-label">姓名：</label>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <p class="form-control-static" ng-bind="vm.model.name_display">Username</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 col-md-3 col-sm-3 control-label">部门：</label>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <p class="form-control-static" ng-bind="vm.model.deptname">Username</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 col-md-3 col-sm-3 control-label">手机号码：</label>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <p class="form-control-static" ng-bind="vm.model.mobile">Username</p>
+                </div>
+            </div>
+            <div class="form-group mb15">
+                <label class="col-lg-3 col-md-3 col-sm-3 control-label"><span class="redstar">*</span> 材料描述：</label>
+                <div class="col-lg-6 col-md-6 col-sm-6 pr0">
+                    <textarea rows="3" name="describe" class="form-control" ng-model="vm.model.describe" required></textarea>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span class="help-block has-error" ng-show="vm.Form.describe.$invalid">描述必须填写</span>
+                </div>
+            </div>
+            <div class="form-group mb15">
+                <label class="col-lg-3 col-md-3 col-sm-3 control-label"><span class="redstar">*</span> 份数：</label>
+                <div class="col-lg-6 col-md-6 col-sm-6 pr0">
+                    <input type="number" min="1" class="form-control" ng-model="vm.model.number">
+                </div>
+            </div>
+            <div class="form-group mb15">
+                <label class="col-lg-3 col-md-3 col-sm-3 control-label"><span class="redstar">*</span>  用途：</label>
+                <div class="col-lg-6 col-md-6 col-sm-6 pr0">
+                    <textarea rows="3" name="purpose" class="form-control " ng-model="vm.model.purpose" required></textarea>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span class="help-block has-error" ng-show="vm.Form.purpose.$invalid">用途必须填写</span>
+                </div>
+            </div>
+            <div class="form-group mb15">
+                <label class="col-lg-3 col-md-3 col-sm-3 control-label">附件：</label>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <button class="btn btn-primary btn-sm" ngf-select ng-model="vm.model.file"><span class="icon-upload2 mr5"></span> 选择一个文件</button>
+                    <span ng-bind="vm.model.file.name"></span>
+                </div>
+            </div>
+            <div class="Split-line mt35 mb35"></div>
+            <div class="text-center mt20 mb20">
+                <button type="submit" ng-disabled="vm.submitBtnState" class="btn btn-danger w110 mr30">提交</button>
+                <!--<button type="submit" class="btn btn-default  w110 mr30">保存草稿</button>-->
+                <!--<button type="button" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i>Cancel</button>-->
+            </div>
+        </form>
+    </div>
+</div>

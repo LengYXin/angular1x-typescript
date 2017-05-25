@@ -16,15 +16,7 @@ BuildingPlugin.directivesOrFilters("src", "filters", "modular.ts");
 BuildingPlugin.directivesOrFilters("src", "directives", "modular.ts");
 BuildingPlugin.controller("src", "controllers", "modular.ts");
 BuildingPlugin.css();
-gulp.task('test', function(done) {
-    // BuildingPlugin.test("src", "directives", "modular.ts");
-    BuildingPlugin.services("src", "services", "modular.ts");
-    done();
-});
-
 var localhost = "http://localhost:" + webpackConfig.devServer.port + "/";
-
-
 /**
  * webpack develop server
  */
@@ -43,6 +35,7 @@ gulp.task('ts2', function(done) {
         });
     }, 5000);
 });
+// 监控文件变化 生成对应的模块
 gulp.task('watch', function(done) {
     function sw(type, cb) {
         console.log("******************************************" + type);
@@ -86,6 +79,9 @@ gulp.task('watch', function(done) {
 
 // 默认  启动监控 和 webpack
 gulp.task('default', ['watch', 'ts2']);
+
+
+
 // 打包 
 var vStr = new Date().getTime();
 // 处理html 模板文件
@@ -98,17 +94,20 @@ gulp.task('templateCache', function() {
         }))
         .pipe(gulp.dest('src/baseClass'));
 });
+//webpack 处理 ts
 gulp.task('ts', ['templateCache'], function(done) {
     webpack(webpackConfigBuild, function(err, stats) {
         if (err) throw new gutil.PluginError("webpack:build", err);
         done();
     });
 });
+//合并 html 文件中的 css 和 js  并加入版本号
 gulp.task('useref', ['ts'], function(done) {
     gulp.src('www/index.html')
         .pipe(useref())
         .pipe(replace('build.css', 'build.css?v=' + vStr))
         .pipe(replace('build.js', 'build.js?v=' + vStr))
+        .pipe(replace(/<!--.*?-->/g, ''))
         .pipe(gulp.dest('build'));
     gulp.src('www/login.html')
         // .pipe(useref())
@@ -117,11 +116,16 @@ gulp.task('useref', ['ts'], function(done) {
         .pipe(gulp.dest('build'));
     done();
 });
+//打包完成 移动 字体文件和图片
 gulp.task('build', ['useref'], function(done) {
     gulp.src('www/assets/fonts/**')
         .pipe(gulp.dest('build/assets/fonts'));
+    gulp.src('www/assets/json/**')
+        .pipe(gulp.dest('build/assets/json'));
     gulp.src('www/assets/img/**')
         .pipe(gulp.dest('build/assets/img'));
+    gulp.src('www/error.html')
+        .pipe(gulp.dest('build'));
     console.log('                       ------ 拷贝项目目录下的 build 文件夹 ------');
     done();
 });

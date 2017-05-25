@@ -1,0 +1,7 @@
+{
+    "code": 0,
+    "data": {
+        "userName": "姓名",
+        "role": ["mg", "hr"]
+    }
+}

@@ -1,0 +1,27 @@
+<div sam-open-transition>
+    <!-- Nav tabs -->
+    <!--<ul class="nav nav-tabs" role="tablist">
+        <li ng-class="{'active':!vm.serHelper.$stateParams.type.length}"><a href="#mg-member" aria-controls="mg-member" data-toggle="tab">团队成员</a></li>
+        <li><a href="#mg-organization" aria-controls="mg-organization" data-toggle="tab">组织架构</a></li>
+        <li ng-class="{'active':vm.serHelper.$stateParams.type.length}"><a href="#mg-reportform" aria-controls="mg-reportform" data-toggle="tab">报表分析</a></li>
+    </ul>-->
+
+    <!-- Tab panes -->
+    <!--<div class="tab-content">
+        <div class="tab-pane " ng-class="{'active':!vm.serHelper.$stateParams.type.length}" id="mg-member" ui-view="mg-member"></div>
+        <div class="tab-pane " id="mg-organization" ui-view="mg-organization"></div>
+        <div class="tab-pane " ng-class="{'active':vm.serHelper.$stateParams.type.length}" id="mg-reportform" ui-view="mg-reportform"></div>
+    </div>-->
+
+
+
+    <div class="main-menu-tabs">
+        <ul class="nav nav-tabs" role="tablist">
+            <li ui-sref-active="active" class="active"><a ui-sref="mg.member">团队成员</a></li>
+            <li ng-class="{'active':vm.serHelper.$state.current.name=='mg.organization'}"><a ui-sref="mg.organization({id:0})">组织架构</a></li>
+            <li ui-sref-active="active"><a ui-sref="mg.reportform">报表分析</a></li>
+        </ul>
+    </div>
+    <div ui-view=""></div>
+
+</div>

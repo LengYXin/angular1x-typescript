@@ -11,12 +11,19 @@ declare module 'yxInterface' {
 
 declare namespace Interface {
     /**
+     * 轮播图配置 
+     */
+    interface ISwiperCarouselfigureConfig {
+        dataList: any[];
+        SwiperConfig?: any;
+    }
+    /**
      * 控制器 模块 用来  很复杂 没想好 路由需要
      */
-    interface ControllerModular {
+    interface IControllerModular {
         name?: string,
         url?: string,
-        val?: { $stateParams?: string[], $IState?: ng.ui.IState, $views?: { [name: string]: ng.ui.IState } }
+        val?: { $stateParams?: string[], $IState?: ng.ui.IState[], $views?: { [name: string]: ng.ui.IState } }
     }
     /**
      * 分页
